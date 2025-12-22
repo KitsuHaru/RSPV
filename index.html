@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE LONG RUN - Ramdani & Tyas</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&family=Inter:wght@300;400;600;800&family=Noto+Sans+Arabic:wght@600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-stone-50 text-gray-800">
+
+    <div id="entry-page">
+        <h2 class="text-gray-400 text-xl tracking-[0.3em] mb-10 uppercase font-light">Who's Watching?</h2>
+        <div class="text-center group cursor-pointer" onclick="activateDisney()">
+            <div class="avatar-disney mb-6">✨</div>
+            <p id="nama-tamu-entry" class="text-white text-3xl font-bold tracking-tight capitalize">Tamu Undangan</p>
+        </div>
+        <button class="mt-14 px-10 py-2 border border-gray-600 text-gray-500 hover:text-white hover:border-white transition uppercase text-xs tracking-[0.3em]" onclick="activateDisney()">Enter Premiere</button>
+    </div>
+
+    <div id="music-control" class="fixed bottom-6 right-6 z-[10001] hidden">
+        <button onclick="toggleMusic()" class="bg-white/20 backdrop-blur-md p-3 rounded-full border border-white/30 text-white shadow-2xl hover:scale-110 transition-all">
+            <span id="music-icon">🔊</span>
+        </button>
+    </div>
+    <audio id="bgMusic" loop>
+        <source src="assets/music/beautiful-in-white.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="main-content" class="hidden opacity-0 transition-opacity duration-1000">
+        
+        <div id="sacred-section">
+            <section class="h-screen flex flex-col justify-center items-center text-center text-white hero-bg px-4 relative">
+                <div data-aos="fade-up" data-aos-duration="1500">
+                    <h3 class="text-xl mb-4 tracking-[0.3em] uppercase font-light">The Wedding Of</h3>
+                    <h1 class="text-5xl md:text-8xl font-wedding mb-6 text-amber-200">Ramdani & Tyas</h1>
+                    <p class="text-lg md:text-2xl tracking-widest border-y border-white/30 py-2 inline-block px-8">14 . 02 . 2026</p>
+                </div>
+            </section>
+
+            <section class="py-20 px-6 text-center bg-white border-y border-stone-200">
+                <div class="max-w-4xl mx-auto" data-aos="fade-up">
+                    <p class="font-arabic text-3xl mb-6 text-amber-800" dir="rtl">وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا</p>
+                    <p class="italic text-gray-600 text-lg">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya..."</p>
+                </div>
+            </section>
+
+            <section class="py-20 bg-stone-50 px-6 text-center">
+                <div class="grid md:grid-cols-2 gap-16 max-w-6xl mx-auto">
+                    <div data-aos="fade-right">
+                        <div class="w-56 h-72 rounded-t-full border-8 border-white shadow-xl overflow-hidden mx-auto bg-gray-200">
+                            <img src="assets/img/foto_ramdani.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-2xl font-bold text-amber-900 mt-6 font-disney">Mohamad Ramdani Yumansyah</h3>
+                        <p class="text-gray-500 italic text-sm">Putra dari Bpk. Muhamad Imanudin & Ibu Wahyuni</p>
+                    </div>
+                    <div data-aos="fade-left">
+                        <div class="w-56 h-72 rounded-t-full border-8 border-white shadow-xl overflow-hidden mx-auto bg-gray-200">
+                            <img src="assets/img/foto_tyas.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-2xl font-bold text-amber-900 mt-6 font-disney">Sholehati Nuringtyas Wibowo</h3>
+                        <p class="text-gray-500 italic text-sm">Putri dari Bpk. Eko Wahyu & Ibu Ernik Winarni</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 bg-stone-100 flex justify-center">
+                <div class="card-glass p-12 rounded-3xl max-w-2xl w-full text-center shadow-2xl" data-aos="zoom-in">
+                    <h4 class="text-amber-800 font-bold uppercase tracking-widest mb-4">SAVE THE DATE</h4>
+                    <p class="text-4xl font-bold text-gray-800 mb-6 font-disney">14 FEBRUARI 2026</p>
+                    <p class="text-gray-600 mb-8 italic">MANG KABAYAN HARAPAN INDAH</p>
+                    <button onclick="scrollToDisney()" class="bg-blue-600 text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-blue-700 transition shadow-blue-500/50 shadow-lg">
+                        ▶ Explore Journey Premiere
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <div id="disney-experience">
+            <section class="disney-hero">
+                <div class="max-w-5xl z-10 px-8 md:px-20" data-aos="fade-right">
+                    <p class="text-blue-400 font-extrabold tracking-[0.4em] uppercase mb-4 text-xs md:text-sm">A Disney Original Story Presentation</p>
+                    <h1 class="disney-title gradient-text leading-tight mb-4">THE LONG RUN</h1>
+                    <h2 class="text-3xl md:text-5xl font-wedding text-blue-300 mb-8 italic">Finding Home</h2>
+                    
+                    <div class="flex items-center space-x-6 text-gray-300 mb-10 font-semibold text-sm">
+                        <span class="text-green-400 text-lg">100% Match</span>
+                        <span class="text-lg">2026</span>
+                        <span class="border-2 border-gray-600 px-3 py-1 rounded-md text-xs">U/A 13+</span>
+                        <span class="text-gray-500">4K Ultra HD • Dolby Atmos</span>
+                    </div>
+                    
+                    <p class="text-gray-300 text-xl md:text-2xl leading-relaxed italic font-light max-w-3xl">
+                        "Beberapa cerita tidak ditulis untuk terburu-buru. Ia ditulis untuk bertahan, diuji oleh waktu, dan akhirnya menemukan pelabuhan yang paling tenang."
+                    </p>
+                </div>
+            </section>
+
+            <section id="story" class="py-24 px-8 md:px-20">
+                <h2 class="text-3xl font-bold mb-10 border-l-4 border-blue-600 pl-6 tracking-tight text-white uppercase font-disney">Episodes: The Journey</h2>
+                <div class="scroller">
+                    <div class="disney-card">
+                        <div class="card-img-wrapper">
+                            <img src="assets/img/ep1.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-8">
+                            <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block">S01 E01 • SMP</span>
+                            <h3 class="text-2xl font-bold text-white mb-4">The Unwritten Script</h3>
+                            <p class="text-gray-400 text-base leading-relaxed font-light">Semuanya dimulai tanpa rencana.
+Di bangku sekolah dan hari-hari sederhana, kita bertemu tanpa tahu bahwa pertemuan itu akan menjadi awal dari cerita panjang.</p>
+                        </div>
+                    </div>
+                    <div class="disney-card">
+                        <div class="card-img-wrapper">
+                            <img src="assets/img/ep2.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-8">
+                            <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block">S01 E02 • Transition</span>
+                            <h3 class="text-2xl font-bold text-white mb-4">The Long Intermission</h3>
+                            <p class="text-gray-400 text-base leading-relaxed font-light">Waktu memisahkan, hidup berubah arah.
+Namun di antara jarak dan kesibukan, perasaan itu tidak pernah benar-benar pergi.</p>
+                        </div>
+                    </div>
+                    <div class="disney-card">
+                        <div class="card-img-wrapper">
+                            <img src="assets/img/ep3.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-8">
+                            <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block">Finale • The Vow</span>
+                            <h3 class="text-2xl font-bold text-white mb-4">Finding Home</h3>
+                            <p class="text-gray-400 text-base leading-relaxed font-light">Perjalanan panjang akhirnya membawa kita ke satu tempat.
+Bukan sekadar tujuan tapi rumah. Bersama.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-24 px-8 max-w-4xl mx-auto">
+                <div class="bg-[#1a1d29] p-12 rounded-3xl border border-gray-800 shadow-[0_30px_60px_rgba(0,0,0,0.5)]">
+                    <h2 class="text-3xl font-black mb-12 text-center uppercase tracking-[0.4em] text-white">Confirmation</h2>
+                    <form action="https://formspree.io/f/ramdaniyumansyah22@gmail.com" method="POST" class="space-y-8">
+                        <div>
+                            <label class="text-blue-500 uppercase text-xs font-black tracking-widest mb-3 block">Guest Name</label>
+                            <input type="text" name="nama" id="rsvp-nama" class="w-full bg-[#030b17] border border-gray-700 p-5 rounded-xl text-white text-lg outline-none focus:border-blue-500 transition-all shadow-inner">
+                        </div>
+                        <div>
+                            <label class="text-blue-500 uppercase text-xs font-black tracking-widest mb-3 block">Attendance Status</label>
+                            <select name="status" class="w-full bg-[#030b17] border border-gray-700 p-5 rounded-xl text-white text-lg outline-none focus:border-blue-500 transition-all">
+                                <option value="Hadir">Hadir</option>
+                                <option value="Tidak">Berhalangan</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 py-6 rounded-xl font-black uppercase tracking-widest text-lg transition-all shadow-xl shadow-blue-500/30">Submit RSVP</button>
+                    </form>
+                </div>
+            </section>
+
+            <footer class="py-24 text-center border-t border-gray-900 bg-black">
+                <h2 class="font-wedding text-6xl text-blue-500 mb-6">Ramdani & Tyas</h2>
+                <p class="text-gray-600 text-xs tracking-[0.6em] uppercase italic">Disney+ Wedding Premiere • Produced by Mr. Yu</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
