@@ -125,7 +125,7 @@ body {
     width: 100%;
     display: flex;
     align-items: center;
-    background: linear-gradient(90deg, var(--disney-dark) 40%, rgba(3, 11, 23, 0) 100%),
+    background: linear-gradient(90deg, var(--disney-dark) 0.5%, rgba(3, 11, 23, 0) 100%),
                 url('assets/img/hero_disney.jpeg');
     background-size: cover;
     background-position: center right;
