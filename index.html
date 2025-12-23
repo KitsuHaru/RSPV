@@ -110,34 +110,34 @@
             <section id="story" class="py-24 px-8 md:px-20">
                 <h2 class="text-3xl font-bold mb-10 border-l-4 border-blue-600 pl-6 tracking-tight text-white uppercase font-disney">Episodes: The Journey</h2>
                 <div class="scroller">
-                    <div class="disney-card">
+                    <div class="disney-card cursor-pointer" onclick="openModal('ep1')">
                         <div class="card-img-wrapper">
                             <img src="assets/img/ep1.jpeg" class="w-full h-full object-cover">
                         </div>
                         <div class="p-8">
-                            <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block">S01 E01 • SMP</span>
+                            <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block">S01 E01 • The Unwritten Script</span>
                             <h3 class="text-2xl font-bold text-white mb-4">The Unwritten Script</h3>
-                            <p class="text-gray-400 text-base leading-relaxed font-light">Semuanya dimulai tanpa rencana. Di bangku sekolah dan hari-hari sederhana, kita bertemu tanpa tahu bahwa pertemuan itu akan menjadi awal dari cerita panjang.</p>
+                            <p class="text-gray-400 text-base leading-relaxed font-light">Berpisah selepas sekolah, takdir membawa kita bertemu kembali dalam sebuah cerita yang tak pernah terbayangkan sebelumnya.</p>
                         </div>
                     </div>
-                    <div class="disney-card">
+                    <div class="disney-card cursor-pointer" onclick="openModal('ep2')">
                         <div class="card-img-wrapper">
                             <img src="assets/img/ep2.jpeg" class="w-full h-full object-cover">
                         </div>
                         <div class="p-8">
-                            <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block">S01 E02 • Transition</span>
-                            <h3 class="text-2xl font-bold text-white mb-4">The Long Intermission</h3>
-                            <p class="text-gray-400 text-base leading-relaxed font-light">Waktu memisahkan, hidup berubah arah. Namun di antara jarak dan kesibukan, perasaan itu tidak pernah benar-benar pergi.</p>
+                            <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block">S01 E02 • Milestone</span>
+                            <h3 class="text-2xl font-bold text-white mb-4">The Milestone</h3>
+                            <p class="text-gray-400 text-base leading-relaxed font-light">Setelah sekian lama mencari, akhirnya perjalanan ini menemukan tambatannya. Memulai babak baru yang penuh warna.</p>
                         </div>
                     </div>
-                    <div class="disney-card">
+                    <div class="disney-card cursor-pointer" onclick="openModal('ep3')">
                         <div class="card-img-wrapper">
                             <img src="assets/img/ep3.jpeg" class="w-full h-full object-cover">
                         </div>
                         <div class="p-8">
-                            <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block">Finale • The Vow</span>
+                            <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block">FINALE • Finding Home</span>
                             <h3 class="text-2xl font-bold text-white mb-4">Finding Home</h3>
-                            <p class="text-gray-400 text-base leading-relaxed font-light">Perjalanan panjang akhirnya membawa kita ke satu tempat. Bukan sekadar tujuan tapi rumah. Bersama.</p>
+                            <p class="text-gray-400 text-base leading-relaxed font-light">Setelah terjangan ombak dan badai, perjalanan panjang ini akhirnya menemukan satu tempat paling tenang untuk menetap.</p>
                         </div>
                     </div>
                 </div>
@@ -177,6 +177,17 @@
                 <h2 class="font-wedding text-6xl text-blue-500 mb-6">Ramdani & Tyas</h2>
                 <p class="text-gray-600 text-xs tracking-[0.6em] uppercase italic">Wedding Premiere • Produced by Mr. Yu</p>
             </footer>
+        </div>
+    </div>
+
+    <div id="storyModal" class="fixed inset-0 z-[11000] hidden flex items-center justify-center bg-black/90 backdrop-blur-md p-4 transition-all duration-500">
+        <div class="bg-[#1a1d29] border border-gray-700 w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl transform transition-all scale-95 opacity-0" id="modalContent">
+            <div id="modalImg" class="h-56 bg-cover bg-center border-b border-gray-800"></div>
+            <div class="p-8 text-white text-center">
+                <h3 id="modalTitle" class="text-3xl font-bold mb-4 text-blue-400 font-disney uppercase tracking-widest"></h3>
+                <p id="modalDescription" class="text-gray-300 leading-relaxed text-lg font-light italic"></p>
+                <button onclick="closeModal()" class="mt-8 px-10 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full transition-all font-black uppercase tracking-widest">Close Premiere</button>
+            </div>
         </div>
     </div>
 
