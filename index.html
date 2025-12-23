@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>THE LONG RUN - Ramdani & Tyas</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,12 +13,16 @@
 <body class="bg-stone-50 text-gray-800">
 
     <div id="entry-page">
-        <h2 class="text-gray-400 text-xl tracking-[0.3em] mb-10 uppercase font-light">Who's Watching?</h2>
-        <div class="text-center group cursor-pointer" onclick="activateDisney()">
-            <div class="avatar-disney mb-6">✨</div>
-            <p id="nama-tamu-entry" class="text-white text-3xl font-bold tracking-tight capitalize">Tamu Undangan</p>
+        <h2 class="text-gray-400 text-xl tracking-[0.3em] mb-10 uppercase font-light w-full">Who's Watching?</h2>
+        
+        <div class="flex flex-col items-center group cursor-pointer" onclick="activateDisney()">
+            <div class="avatar-disney">🐼</div>
+            <p id="nama-tamu-entry" class="text-white text-3xl font-bold tracking-tight capitalize mt-6">Tamu Undangan</p>
         </div>
-        <button class="mt-14 px-10 py-2 border border-gray-600 text-gray-500 hover:text-white hover:border-white transition uppercase text-xs tracking-[0.3em]" onclick="activateDisney()">Enter Premiere</button>
+        
+        <button class="mt-14 px-10 py-2 border border-gray-600 text-gray-500 hover:text-white hover:border-white transition uppercase text-xs tracking-[0.3em]" onclick="activateDisney()">
+            Enter Premiere
+        </button>
     </div>
 
     <div id="music-control" class="fixed bottom-6 right-6 z-[10001] hidden">
@@ -87,18 +91,18 @@
             </section>
         </div>
 
-        <div id="disney-experience">
+        <div id="disney-experience" class="locked-experience">
             <section class="disney-hero">
                 <div class="max-w-5xl z-10 px-8 md:px-20" data-aos="fade-right">
                     <p class="text-blue-400 font-extrabold tracking-[0.4em] uppercase mb-4 text-xs md:text-sm">A Disney Original Story Presentation</p>
                     <h1 class="disney-title gradient-text leading-tight mb-4">THE LONG RUN</h1>
                     <h2 class="text-3xl md:text-5xl font-wedding text-blue-300 mb-8 italic">Finding Home</h2>
                     
-                    <div class="flex flex-wrap items-center gap-4 text-gray-300 mb-10 font-semibold text-sm">
+                    <div class="flex flex-wrap items-center gap-4 text-gray-300 mb-10 font-semibold text-sm info-row">
                         <span class="text-green-400 text-lg">100% Match</span>
                         <span class="text-lg">2026</span>
                         <span class="border-2 border-gray-600 px-3 py-1 rounded-md text-xs">U/A 13+</span>
-                        <span class="text-gray-400 font-medium opacity-100">4K Ultra HD • Dolby Atmos</span>
+                        <span class="text-gray-400 font-medium">4K Ultra HD • Dolby Atmos</span>
                     </div>
                     
                     <p class="text-gray-300 text-xl md:text-2xl leading-relaxed italic font-light max-w-3xl">
@@ -111,33 +115,27 @@
                 <h2 class="text-3xl font-bold mb-10 border-l-4 border-blue-600 pl-6 tracking-tight text-white uppercase font-disney">Episodes: The Journey</h2>
                 <div class="scroller">
                     <div class="disney-card cursor-pointer" onclick="openModal('ep1')">
-                        <div class="card-img-wrapper">
-                            <img src="assets/img/ep1.jpeg" class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-8">
+                        <div class="card-img-wrapper"><img src="assets/img/ep1.jpeg" class="w-full h-full object-cover"></div>
+                        <div class="p-8 text-left">
                             <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block">S01 E01 • The Unwritten Script</span>
                             <h3 class="text-2xl font-bold text-white mb-4">The Unwritten Script</h3>
-                            <p class="text-gray-400 text-base leading-relaxed font-light">Berpisah selepas sekolah, takdir membawa kita bertemu kembali dalam sebuah cerita yang tak pernah terbayangkan sebelumnya.</p>
+                            <p class="text-gray-400 text-base leading-relaxed font-light">Berpisah selepas sekolah, takdir membawa kita bertemu kembali dalam sebuah cerita yang tak pernah terbayangkan.</p>
                         </div>
                     </div>
                     <div class="disney-card cursor-pointer" onclick="openModal('ep2')">
-                        <div class="card-img-wrapper">
-                            <img src="assets/img/ep2.jpeg" class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-8">
+                        <div class="card-img-wrapper"><img src="assets/img/ep2.jpeg" class="w-full h-full object-cover"></div>
+                        <div class="p-8 text-left">
                             <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block">S01 E02 • Milestone</span>
                             <h3 class="text-2xl font-bold text-white mb-4">The Milestone</h3>
-                            <p class="text-gray-400 text-base leading-relaxed font-light">Setelah sekian lama mencari, akhirnya perjalanan ini menemukan tambatannya. Memulai babak baru yang penuh warna.</p>
+                            <p class="text-gray-400 text-base leading-relaxed font-light">Setelah sekian lama mencari, akhirnya perjalanan ini menemukan tambatannya. Memulai babak baru.</p>
                         </div>
                     </div>
                     <div class="disney-card cursor-pointer" onclick="openModal('ep3')">
-                        <div class="card-img-wrapper">
-                            <img src="assets/img/ep3.jpeg" class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-8">
+                        <div class="card-img-wrapper"><img src="assets/img/ep3.jpeg" class="w-full h-full object-cover"></div>
+                        <div class="p-8 text-left">
                             <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block">FINALE • Finding Home</span>
                             <h3 class="text-2xl font-bold text-white mb-4">Finding Home</h3>
-                            <p class="text-gray-400 text-base leading-relaxed font-light">Setelah terjangan ombak dan badai, perjalanan panjang ini akhirnya menemukan satu tempat paling tenang untuk menetap.</p>
+                            <p class="text-gray-400 text-base leading-relaxed font-light">Setelah terjangan ombak dan badai, perjalanan ini akhirnya menemukan tempat tenang untuk menetap.</p>
                         </div>
                     </div>
                 </div>
@@ -149,7 +147,7 @@
                     <form action="https://formspree.io/f/ramdaniyumansyah22@gmail.com" method="POST" class="space-y-8">
                         <div>
                             <label class="text-blue-500 uppercase text-xs font-black tracking-widest mb-3 block text-left">Guest Name</label>
-                            <input type="text" name="nama" id="rsvp-nama" placeholder="Nama Anda" class="w-full bg-[#030b17] border border-gray-700 p-5 rounded-xl text-white text-lg outline-none focus:border-blue-500 transition-all shadow-inner">
+                            <input type="text" name="nama" id="rsvp-nama" placeholder="Nama Anda" class="w-full bg-[#030b17] border border-gray-700 p-5 rounded-xl text-white text-lg outline-none focus:border-blue-500 transition-all shadow-inner" required>
                         </div>
                         <div>
                             <label class="text-blue-500 uppercase text-xs font-black tracking-widest mb-3 block text-left">Attendance Status</label>

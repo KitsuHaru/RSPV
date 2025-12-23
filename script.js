@@ -1,4 +1,3 @@
-// Inisialisasi animasi AOS
 AOS.init({ duration: 1200, once: true });
 
 const bgMusic = document.getElementById('bgMusic');
@@ -15,17 +14,17 @@ const storyData = {
     },
     ep2: {
         title: "The Milestone",
-        desc: "Berada di tahap ini bukan hal yang instan. Setelah sekian lama melakukan pencarian, kita akhirnya memutuskan untuk menetap. Melewati berbagai hari hingga sampai di titik perayaan ini, membuktikan bahwa penantian panjang selalu membuahkan hasil yang indah.",
+        desc: "Setelah sekian lama mencari, akhirnya perjalanan ini menemukan tambatannya. Berada di tahap ini bukan hal yang instan. Kita memutuskan untuk menetap dan memulai babak baru yang penuh warna.",
         img: "assets/img/ep2.jpeg"
     },
     ep3: {
         title: "Finding Home",
-        desc: "Lika-liku dan terjangan badai ujian hanya membuat fondasi kita semakin kuat. Inilah babak akhir dari petualangan panjang kita, di mana kita tidak lagi mencari tujuan, melainkan sudah menemukannya. Kamu adalah 'Rumah' untukku pulang.",
+        desc: "Lika-liku dan terjangan badai ujian hanya membuat fondasi kita semakin kuat. Inilah babak akhir dari petualangan panjang kita. Kamu adalah 'Rumah' untukku pulang.",
         img: "assets/img/ep3.jpeg"
     }
 };
 
-// LOGIKA PERSONALISASI NAMA TAMU (?to=nama)
+// LOGIKA PERSONALISASI
 const params = new URLSearchParams(window.location.search);
 const to = params.get('to');
 if (to) {
@@ -50,11 +49,23 @@ function activateDisney() {
     }, 1200);
 }
 
+// FUNGSI SURPRISE (HANYA BUKA BAGIAN PREMIERE)
+function scrollToDisney() {
+    const disneyContent = document.getElementById('disney-experience');
+    
+    // Buka kunci bagian Disney
+    disneyContent.classList.remove('locked-experience');
+    
+    // Lakukan scroll halus ke arah Premiere
+    disneyContent.scrollIntoView({ 
+        behavior: 'smooth' 
+    });
+}
+
 // FUNGSI POP-UP MODAL
 function openModal(ep) {
     const modal = document.getElementById('storyModal');
     const content = document.getElementById('modalContent');
-    
     document.getElementById('modalTitle').innerText = storyData[ep].title;
     document.getElementById('modalDescription').innerText = storyData[ep].desc;
     document.getElementById('modalImg').style.backgroundImage = `url(${storyData[ep].img})`;
@@ -74,17 +85,10 @@ function closeModal() {
     setTimeout(() => modal.classList.add('hidden'), 400);
 }
 
-// FUNGSI NAVIGASI
 function scrollToAyat() {
-    const ayatSection = document.getElementById('ayat-section');
-    if (ayatSection) { ayatSection.scrollIntoView({ behavior: 'smooth' }); }
+    document.getElementById('ayat-section').scrollIntoView({ behavior: 'smooth' });
 }
 
-function scrollToDisney() {
-    document.getElementById('disney-experience').scrollIntoView({ behavior: 'smooth' });
-}
-
-// KONTROL MUSIK
 function toggleMusic() {
     if (isMuted) {
         bgMusic.muted = false;
