@@ -1,21 +1,32 @@
+/* ROOT VARIABLES */
 :root {
     --disney-dark: #030b17;
     --accent-blue: #1f80e0;
 }
 
+/* GLOBAL STYLES */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     overflow-x: hidden;
-    background: #fff;
+    background: #fff; /* Latar belakang dasar untuk section sakral */
+    margin: 0;
+    padding: 0;
 }
 
 .font-wedding { font-family: 'Dancing Script', cursive; }
 .font-disney { font-family: 'Inter', sans-serif; }
 .font-arabic { font-family: 'Noto Sans Arabic', sans-serif; }
 
-/* LAYAR AWAL */
+/* 1. LAYAR AWAL (WHO'S WATCHING) */
 #entry-page {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
     background: radial-gradient(circle, #1a2a4d 0%, #030b17 100%);
     z-index: 10000;
     display: flex;
@@ -46,7 +57,7 @@ body {
     box-shadow: 0 0 40px var(--accent-blue);
 }
 
-/* SACRED THEME */
+/* 2. SACRED THEME (BAGIAN ATAS) */
 .hero-bg {
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
         url('assets/img/hero_sacred.jpg');
@@ -61,13 +72,22 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* DISNEY HERO */
+/* 3. DISNEY EXPERIENCE WRAPPER (PENTING: Agar tidak memutih) */
+#disney-experience {
+    background-color: var(--disney-dark); /* Mengembalikan warna biru navy gelap */
+    color: white;
+    width: 100%;
+    position: relative;
+    padding-bottom: 80px;
+}
+
+/* DISNEY HERO SECTION */
 .disney-hero {
     height: 95vh;
     display: flex;
     align-items: center;
-    background: linear-gradient(90deg, var(--disney-dark) 40%, rgba(3, 11, 23, 0) 100%),
-        url('assets/img/hero_disney.jpg');
+    background: linear-gradient(90deg, var(--disney-dark) 0.5%, rgba(3, 11, 23, 0) 100%),
+        url('assets/img/hero_disney.jpeg');
     background-size: cover;
     background-position: center;
     border-bottom: 1px solid #1a1d29;
@@ -80,28 +100,34 @@ body {
     letter-spacing: -2px;
 }
 
+/* Perbaikan Gradasi Teks agar kompatibel di semua browser */
 .gradient-text {
-    background: linear-gradient(to right, #ffffff 50%, #8f98b2 100%);
+    background-image: linear-gradient(to right, #ffffff 50%, #8f98b2 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-/* EPISODE CARDS */
+/* 4. EPISODE CARDS */
 .scroller {
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     gap: 30px;
-    padding: 30px 10px 60px 10px;
+    padding: 30px 20px 60px 20px;
     scrollbar-width: none;
+}
+
+.scroller::-webkit-scrollbar {
+    display: none;
 }
 
 .disney-card {
     flex: 0 0 380px;
     scroll-snap-align: start;
     transition: 0.6s cubic-bezier(0.2, 1, 0.2, 1);
-    background: #1a1d29;
-    border-radius: 20px; /* Melengkung mewah */
+    background: #1a1d29; /* Warna card gelap agar kontras */
+    border-radius: 20px; /* Melengkung mewah sesuai referensi */
     border: 2px solid rgba(255, 255, 255, 0.05);
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
@@ -118,12 +144,53 @@ body {
     width: 100%;
     height: 220px;
     overflow: hidden;
-    border-bottom: 2px solid rgba(255,255,255,0.05);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.05);
 }
 
-.music-playing { animation: pulse 2s infinite; }
+/* Perbaikan Properti Gambar agar muncul dengan benar */
+.card-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Gunakan object-fit, bukan object-cover */
+}
+
+/* 5. TEXT UTILS UNTUK LATAR GELAP */
+#disney-experience h2, 
+#disney-experience h3 {
+    color: #ffffff !important;
+}
+
+#disney-experience p {
+    color: #cbd5e1; /* Warna abu-abu terang agar nyaman dibaca di latar gelap */
+}
+
+/* 6. MUSIC CONTROL */
+#music-control button {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.music-playing { 
+    animation: pulse 2s infinite; 
+}
+
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); }
     100% { transform: scale(1); }
+}
+
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 768px) {
+    .disney-card {
+        flex: 0 0 300px;
+    }
+    .disney-title {
+        font-size: 3.5rem;
+    }
 }
