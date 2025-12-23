@@ -11,9 +11,10 @@ html {
 
 body {
     overflow-x: hidden;
-    background: #fff; /* Latar belakang dasar untuk section sakral */
+    background: #fff;
     margin: 0;
     padding: 0;
+    width: 100%;
 }
 
 .font-wedding { font-family: 'Dancing Script', cursive; }
@@ -23,47 +24,49 @@ body {
 /* 1. LAYAR AWAL (WHO'S WATCHING) */
 #entry-page {
     position: fixed;
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%;
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
     background: radial-gradient(circle, #1a2a4d 0%, #030b17 100%);
     z-index: 10000;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     transition: 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .avatar-disney {
-    width: 150px;
-    height: 150px;
+    width: clamp(100px, 25vw, 150px);
+    height: clamp(100px, 25vw, 150px);
     background: linear-gradient(180deg, #1f80e0 0%, #112d5e 100%);
     border-radius: 50%;
-    border: 4px solid transparent;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 70px;
-    transition: 0.4s;
+    font-size: clamp(40px, 10vw, 70px);
     cursor: pointer;
     box-shadow: 0 0 20px rgba(31, 128, 224, 0.4);
+    transition: 0.4s;
+    border: 4px solid transparent;
 }
 
 .avatar-disney:hover {
     border-color: white;
-    transform: scale(1.15);
-    box-shadow: 0 0 40px var(--accent-blue);
+    transform: scale(1.1);
 }
 
 /* 2. SACRED THEME (BAGIAN ATAS) */
 .hero-bg {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url('assets/img/hero_sacred.jpeg');
+        url('assets/img/hero_sacred.jpeg'); /* Pastikan ekstensi .jpeg sesuai */
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    background-attachment: scroll; /* Mengubah fixed ke scroll untuk HP agar tidak lag */
 }
 
 .card-glass {
@@ -74,34 +77,35 @@ body {
 
 /* 3. DISNEY EXPERIENCE WRAPPER */
 #disney-experience {
-    background-color: var(--disney-dark); /* Mengembalikan biru navy gelap agar teks putih terlihat */
+    background-color: var(--disney-dark); /* Mengembalikan biru navy gelap */
     color: white;
     width: 100%;
-    position: relative;
-    padding-bottom: 80px;
+    overflow-x: hidden;
 }
 
-/* DISNEY HERO SECTION - Perbaikan Zoom */
+/* DISNEY HERO - Perbaikan Zoom & Responsif */
 .disney-hero {
-    height: 100vh;
+    min-height: 100vh;
+    width: 100%;
     display: flex;
     align-items: center;
     background: linear-gradient(90deg, var(--disney-dark) 40%, rgba(3, 11, 23, 0) 100%),
-        url('assets/img/hero_disney.jpeg');
-    background-size: cover; 
-    background-position: center right; /* Geser ke kanan agar wajah tidak terpotong teks */
-    background-repeat: no-repeat;
-    border-bottom: 1px solid #1a1d29;
+                url('assets/img/hero_disney.jpeg');
+    background-size: cover;
+    background-position: center right; /* Wajah bergeser ke kanan agar tidak tertutup teks */
+    position: relative;
+    padding: 100px 20px;
+    box-sizing: border-box;
 }
 
 .disney-title {
     font-family: 'Inter', sans-serif;
     font-weight: 900;
-    font-size: clamp(3rem, 10vw, 7rem);
+    font-size: clamp(2.5rem, 8vw, 7rem);
+    line-height: 1.1;
     letter-spacing: -2px;
 }
 
-/* Perbaikan Gradasi Teks agar kompatibel */
 .gradient-text {
     background-image: linear-gradient(to right, #ffffff 50%, #8f98b2 100%);
     -webkit-background-clip: text;
@@ -119,40 +123,40 @@ body {
     scrollbar-width: none;
 }
 
-.scroller::-webkit-scrollbar {
-    display: none;
-}
+.scroller::-webkit-scrollbar { display: none; }
 
 .disney-card {
-    flex: 0 0 380px;
-    scroll-snap-align: start;
+    flex: 0 0 85%; /* Card lebih lebar di HP agar pas */
+    max-width: 380px;
+    scroll-snap-align: center;
     transition: 0.6s cubic-bezier(0.2, 1, 0.2, 1);
     background: #1a1d29;
-    border-radius: 20px; /* Melengkung mewah sesuai referensi */
+    border-radius: 20px;
     border: 2px solid rgba(255, 255, 255, 0.05);
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
+@media (min-width: 768px) {
+    .disney-card { flex: 0 0 380px; }
+}
+
 .disney-card:hover {
-    transform: scale(1.08) translateY(-10px);
+    transform: scale(1.05) translateY(-5px);
     border-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
-    z-index: 10;
 }
 
 .card-img-wrapper {
     width: 100%;
     height: 220px;
     overflow: hidden;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.05);
 }
 
-/* PERBAIKAN FATAL: Gunakan object-fit, bukan object-cover */
+/* Perbaikan Properti Gambar */
 .card-img-wrapper img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Memperbaiki error unknown property */
+    object-fit: cover; /* Gunakan object-fit, BUKAN object-cover */
 }
 
 /* 5. TEXT UTILS */
@@ -165,7 +169,14 @@ body {
     color: #cbd5e1;
 }
 
-/* 6. MUSIC CONTROL */
+/* 6. RSVP & FORM STYLING (Agar tidak kepotong di HP) */
+form select, form input, form textarea {
+    width: 100% !important;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+/* 7. MUSIC CONTROL */
 #music-control button {
     width: 50px;
     height: 50px;
@@ -173,25 +184,18 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 20px;
-    cursor: pointer;
 }
 
-.music-playing { 
-    animation: pulse 2s infinite; 
-}
-
+.music-playing { animation: pulse 2s infinite; }
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); }
     100% { transform: scale(1); }
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .disney-card {
-        flex: 0 0 300px;
-    }
-    .disney-title {
-        font-size: 3.5rem;
+/* Responsive khusus layar kecil */
+@media (max-width: 480px) {
+    .disney-hero {
+        background-position: center; /* Kembali ke tengah untuk layar sangat sempit */
     }
 }
