@@ -60,7 +60,7 @@ body {
 /* 2. SACRED THEME (BAGIAN ATAS) */
 .hero-bg {
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url('assets/img/hero_sacred.jepg');
+        url('assets/img/hero_sacred.jpeg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
