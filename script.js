@@ -11,10 +11,13 @@ stars.forEach(star => {
     star.addEventListener('click', (e) => {
         const rating = e.target.getAttribute('data-star');
         stars.forEach(s => {
-            if(s.getAttribute('data-star') <= rating) {
-                s.classList.replace('text-gray-600', 'text-amber-400');
+            const sRating = s.getAttribute('data-star');
+            if(sRating <= rating) {
+                s.classList.remove('text-gray-600');
+                s.classList.add('text-amber-400');
             } else {
-                s.classList.replace('text-amber-400', 'text-gray-600');
+                s.classList.remove('text-amber-400');
+                s.classList.add('text-gray-600');
             }
         });
     });
@@ -26,19 +29,19 @@ setInterval(() => {
     const now = new Date().getTime();
     const gap = weddingDate - now;
     const second = 1000, minute = second * 60, hour = minute * 60, day = hour * 24;
-    document.getElementById("days").innerText = Math.floor(gap / day);
-    document.getElementById("hours").innerText = Math.floor((gap % day) / hour);
-    document.getElementById("minutes").innerText = Math.floor((gap % hour) / minute);
-    document.getElementById("seconds").innerText = Math.floor((gap % minute) / second);
+    
+    const d = document.getElementById("days");
+    const h = document.getElementById("hours");
+    const m = document.getElementById("minutes");
+    const s = document.getElementById("seconds");
+
+    if(d) d.innerText = Math.floor(gap / day);
+    if(h) h.innerText = Math.floor((gap % day) / hour);
+    if(m) m.innerText = Math.floor((gap % hour) / minute);
+    if(s) s.innerText = Math.floor((gap % minute) / second);
 }, 1000);
 
-// --- COPY TO CLIPBOARD ---
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text);
-    alert("Nomor Rekening Mandiri Berhasil Disalin!");
-}
-
-// --- DATA STORY DENGAN 2 GAMBAR BERBEDA ---
+// --- DATA STORY ---
 const storyData = {
     ep1: { 
         title: "The Unwritten Script", 
@@ -57,13 +60,16 @@ const storyData = {
     }
 };
 
-// LOGIKA PERSONALISASI
+// LOGIKA PERSONALISASI (Nama Tamu Otomatis)
 const params = new URLSearchParams(window.location.search);
 const to = params.get('to');
 if (to) {
-    const cleanName = to.replace(/[+_-]/g, ' ');
-    document.getElementById('nama-tamu-entry').innerText = cleanName;
-    document.getElementById('rsvp-nama').value = cleanName;
+    const cleanName = decodeURIComponent(to.replace(/[+_-]/g, ' '));
+    const entryName = document.getElementById('nama-tamu-entry');
+    const rsvpName = document.getElementById('rsvp-nama');
+    
+    if (entryName) entryName.innerText = cleanName;
+    if (rsvpName) rsvpName.value = cleanName;
 }
 
 // FUNGSI MEMBUKA UNDANGAN
@@ -80,17 +86,21 @@ function activateDisney() {
     }, 1200);
 }
 
-// FUNGSI SURPRISE
+// FUNGSI SCROLL KE DISNEY EXPERIENCE
 function scrollToDisney() {
     const disneyContent = document.getElementById('disney-experience');
-    disneyContent.classList.remove('locked-experience');
-    disneyContent.scrollIntoView({ behavior: 'smooth' });
+    if(disneyContent) {
+        disneyContent.classList.remove('locked-experience');
+        disneyContent.scrollIntoView({ behavior: 'smooth' });
+    }
 }
 
 // FUNGSI MODAL
 function openModal(ep) {
     const modal = document.getElementById('storyModal');
     const content = document.getElementById('modalContent');
+    if(!modal || !storyData[ep]) return;
+
     document.getElementById('modalTitle').innerText = storyData[ep].title;
     document.getElementById('modalDescription').innerText = storyData[ep].desc;
     document.getElementById('modalImg').style.backgroundImage = `url(${storyData[ep].img})`;
@@ -111,7 +121,8 @@ function closeModal() {
 }
 
 function scrollToAyat() {
-    document.getElementById('ayat-section').scrollIntoView({ behavior: 'smooth' });
+    const ayat = document.getElementById('ayat-section');
+    if(ayat) ayat.scrollIntoView({ behavior: 'smooth' });
 }
 
 function toggleMusic() {
@@ -125,19 +136,11 @@ function toggleMusic() {
     isMuted = !isMuted;
 }
 
-
-/* ========================================================= */
-/* --- BTS SLIDER LOGIC (SCROLL LEFT RIGHT + DRAG SWIPE) --- */
-/* ========================================================= */
-
+/* --- BTS SLIDER LOGIC --- */
 function scrollBTS(direction) {
     const slider = document.getElementById("bts-slider");
     if (!slider) return;
-
-    slider.scrollBy({
-        left: direction * 320,
-        behavior: "smooth"
-    });
+    slider.scrollBy({ left: direction * 320, behavior: "smooth" });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -148,31 +151,31 @@ document.addEventListener("DOMContentLoaded", () => {
     let startX = 0;
     let scrollLeft = 0;
 
-    // Desktop drag
     btsSlider.addEventListener("mousedown", (e) => {
         isDown = true;
         startX = e.pageX - btsSlider.offsetLeft;
         scrollLeft = btsSlider.scrollLeft;
+        btsSlider.style.cursor = 'grabbing';
     });
 
     btsSlider.addEventListener("mouseleave", () => {
         isDown = false;
+        btsSlider.style.cursor = 'grab';
     });
 
     btsSlider.addEventListener("mouseup", () => {
         isDown = false;
+        btsSlider.style.cursor = 'grab';
     });
 
     btsSlider.addEventListener("mousemove", (e) => {
         if (!isDown) return;
         e.preventDefault();
-
         const x = e.pageX - btsSlider.offsetLeft;
         const walk = (x - startX) * 2;
         btsSlider.scrollLeft = scrollLeft - walk;
     });
 
-    // Mobile swipe
     btsSlider.addEventListener("touchstart", (e) => {
         startX = e.touches[0].pageX;
         scrollLeft = btsSlider.scrollLeft;
