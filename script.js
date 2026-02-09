@@ -5,11 +5,13 @@ const musicBtn = document.getElementById('music-control');
 const musicIcon = document.getElementById('music-icon');
 let isMuted = false;
 
-// --- INTERACTIVE RATING LOGIC ---
+// --- LOGIKA BINTANG RATING ---
 const stars = document.querySelectorAll('.star');
+const ratingValueInput = document.getElementById('rating-value');
 stars.forEach(star => {
     star.addEventListener('click', (e) => {
         const rating = e.target.getAttribute('data-star');
+        if(ratingValueInput) ratingValueInput.value = rating;
         stars.forEach(s => {
             const sRating = s.getAttribute('data-star');
             if(sRating <= rating) {
@@ -30,11 +32,7 @@ setInterval(() => {
     const gap = weddingDate - now;
     const second = 1000, minute = second * 60, hour = minute * 60, day = hour * 24;
     
-    const d = document.getElementById("days");
-    const h = document.getElementById("hours");
-    const m = document.getElementById("minutes");
-    const s = document.getElementById("seconds");
-
+    const d = document.getElementById("days"), h = document.getElementById("hours"), m = document.getElementById("minutes"), s = document.getElementById("seconds");
     if(d) d.innerText = Math.floor(gap / day);
     if(h) h.innerText = Math.floor((gap % day) / hour);
     if(m) m.innerText = Math.floor((gap % hour) / minute);
@@ -60,19 +58,18 @@ const storyData = {
     }
 };
 
-// LOGIKA PERSONALISASI (Nama Tamu Otomatis)
+// --- PERSONALIZE NAMA ---
 const params = new URLSearchParams(window.location.search);
 const to = params.get('to');
 if (to) {
     const cleanName = decodeURIComponent(to.replace(/[+_-]/g, ' '));
     const entryName = document.getElementById('nama-tamu-entry');
     const rsvpName = document.getElementById('rsvp-nama');
-    
     if (entryName) entryName.innerText = cleanName;
     if (rsvpName) rsvpName.value = cleanName;
 }
 
-// FUNGSI MEMBUKA UNDANGAN
+// --- FUNGSI UTAMA ---
 function activateDisney() {
     bgMusic.play().catch(() => console.log("Audio interaction needed"));
     musicBtn.classList.remove('hidden');
@@ -86,7 +83,6 @@ function activateDisney() {
     }, 1200);
 }
 
-// FUNGSI SCROLL KE DISNEY EXPERIENCE
 function scrollToDisney() {
     const disneyContent = document.getElementById('disney-experience');
     if(disneyContent) {
@@ -95,7 +91,6 @@ function scrollToDisney() {
     }
 }
 
-// FUNGSI MODAL
 function openModal(ep) {
     const modal = document.getElementById('storyModal');
     const content = document.getElementById('modalContent');
@@ -126,17 +121,12 @@ function scrollToAyat() {
 }
 
 function toggleMusic() {
-    if (isMuted) {
-        bgMusic.muted = false;
-        musicIcon.innerText = "🔊";
-    } else {
-        bgMusic.muted = true;
-        musicIcon.innerText = "🔇";
-    }
+    if (isMuted) { bgMusic.muted = false; musicIcon.innerText = "🔊"; } 
+    else { bgMusic.muted = true; musicIcon.innerText = "🔇"; }
     isMuted = !isMuted;
 }
 
-/* --- BTS SLIDER LOGIC --- */
+// --- BTS SLIDER LOGIC ---
 function scrollBTS(direction) {
     const slider = document.getElementById("bts-slider");
     if (!slider) return;
@@ -158,15 +148,8 @@ document.addEventListener("DOMContentLoaded", () => {
         btsSlider.style.cursor = 'grabbing';
     });
 
-    btsSlider.addEventListener("mouseleave", () => {
-        isDown = false;
-        btsSlider.style.cursor = 'grab';
-    });
-
-    btsSlider.addEventListener("mouseup", () => {
-        isDown = false;
-        btsSlider.style.cursor = 'grab';
-    });
+    btsSlider.addEventListener("mouseleave", () => { isDown = false; btsSlider.style.cursor = 'grab'; });
+    btsSlider.addEventListener("mouseup", () => { isDown = false; btsSlider.style.cursor = 'grab'; });
 
     btsSlider.addEventListener("mousemove", (e) => {
         if (!isDown) return;
@@ -176,14 +159,45 @@ document.addEventListener("DOMContentLoaded", () => {
         btsSlider.scrollLeft = scrollLeft - walk;
     });
 
-    btsSlider.addEventListener("touchstart", (e) => {
-        startX = e.touches[0].pageX;
-        scrollLeft = btsSlider.scrollLeft;
-    });
-
+    btsSlider.addEventListener("touchstart", (e) => { startX = e.touches[0].pageX; scrollLeft = btsSlider.scrollLeft; });
     btsSlider.addEventListener("touchmove", (e) => {
         const x = e.touches[0].pageX;
         const walk = (x - startX) * 2;
         btsSlider.scrollLeft = scrollLeft - walk;
     });
 });
+
+// --- LOGIKA RSVP AJAX (NOTIF DI TEMPAT) ---
+const rsvpForm = document.getElementById('rsvp-form');
+const rsvpContainer = document.getElementById('rsvp-container');
+
+if (rsvpForm) {
+    rsvpForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('btn-rsvp');
+        const originalText = btn.innerText;
+        btn.innerText = "Processing...";
+        btn.disabled = true;
+
+        const formData = new FormData(this);
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            if (response.ok) {
+                rsvpContainer.innerHTML = `
+                    <div class="text-center p-10 animate-zoom-in">
+                        <div class="text-5xl mb-4">✅</div>
+                        <h3 class="text-xl font-bold text-white uppercase tracking-widest mb-2">Konfirmasi Diterima</h3>
+                        <p class="text-gray-400 text-sm italic">"Terima kasih, kehadiran Anda sangat berarti bagi kami."</p>
+                    </div>
+                `;
+            } else {
+                alert("Error sending RSVP.");
+                btn.disabled = false;
+                btn.innerText = originalText;
+            }
+        }).catch(() => { alert("Error sending RSVP."); btn.disabled = false; btn.innerText = originalText; });
+    });
+}
