@@ -1,5 +1,8 @@
 AOS.init({ duration: 1200, once: true });
 
+// Masukkan URL Web App Google Apps Script lo di sini
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzzzVnNv4ECK3XScYN-6QCJv_jCIXke_VnlgY6roljWuxHnKZ1xLXIqg-ICqdTaW8r4/exec";
+
 const bgMusic = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('music-control');
 const musicIcon = document.getElementById('music-icon');
@@ -39,25 +42,6 @@ setInterval(() => {
     if(s) s.innerText = Math.floor((gap % minute) / second);
 }, 1000);
 
-// --- DATA STORY ---
-const storyData = {
-    ep1: { 
-        title: "The Unwritten Script", 
-        desc: "''Setelah masa SMP dan SMA berlalu, semesta mempertemukan kita kembali. Tanpa rencana, tanpa naskah… tapi justru dari situlah cerita ini mulai ditulis dengan cara yang paling indah.''", 
-        img: "assets/img/ep1_modal.jpeg"
-    },
-    ep2: { 
-        title: "The Milestone", 
-        desc: "''Ini bukan pencapaian instan, tapi hasil dari proses panjang yang penuh usaha dan kesabaran. Setelah melewati banyak hal, akhirnya perjalanan ini sampai di titik penting yang layak dirayakan.''", 
-        img: "assets/img/ep2_modal.jpeg"
-    },
-    ep3: { 
-        title: "Finding Home", 
-        desc: "''Semua ujian yang datang hanya membuat kita semakin kuat. Hingga akhirnya kita sadar: tujuan akhir bukan kemenangan, tapi tempat pulang. Dan kamu… adalah rumah itu.''", 
-        img: "assets/img/ep3_modal.jpeg"
-    }
-};
-
 // --- PERSONALIZE NAMA ---
 const params = new URLSearchParams(window.location.search);
 const to = params.get('to');
@@ -94,12 +78,15 @@ function scrollToDisney() {
 function openModal(ep) {
     const modal = document.getElementById('storyModal');
     const content = document.getElementById('modalContent');
+    const storyData = {
+        ep1: { title: "The Unwritten Script", desc: "''Setelah masa SMP dan SMA berlalu...''", img: "assets/img/ep1_modal.jpeg" },
+        ep2: { title: "The Milestone", desc: "''Ini bukan pencapaian instan...''", img: "assets/img/ep2_modal.jpeg" },
+        ep3: { title: "Finding Home", desc: "''Semua ujian yang datang...''", img: "assets/img/ep3_modal.jpeg" }
+    };
     if(!modal || !storyData[ep]) return;
-
     document.getElementById('modalTitle').innerText = storyData[ep].title;
     document.getElementById('modalDescription').innerText = storyData[ep].desc;
     document.getElementById('modalImg').style.backgroundImage = `url(${storyData[ep].img})`;
-    
     modal.classList.remove('hidden');
     setTimeout(() => {
         content.classList.remove('scale-95', 'opacity-0');
@@ -115,89 +102,51 @@ function closeModal() {
     setTimeout(() => modal.classList.add('hidden'), 400);
 }
 
-function scrollToAyat() {
-    const ayat = document.getElementById('ayat-section');
-    if(ayat) ayat.scrollIntoView({ behavior: 'smooth' });
-}
-
 function toggleMusic() {
     if (isMuted) { bgMusic.muted = false; musicIcon.innerText = "🔊"; } 
     else { bgMusic.muted = true; musicIcon.innerText = "🔇"; }
     isMuted = !isMuted;
 }
 
-// --- BTS SLIDER LOGIC ---
-function scrollBTS(direction) {
-    const slider = document.getElementById("bts-slider");
-    if (!slider) return;
-    slider.scrollBy({ left: direction * 320, behavior: "smooth" });
-}
+// --- GOOGLE SHEETS FORM HANDLER ---
+async function submitToSheets(formId, isRedirect) {
+    const form = document.getElementById(formId);
+    if (!form) return;
 
-document.addEventListener("DOMContentLoaded", () => {
-    const btsSlider = document.getElementById("bts-slider");
-    if (!btsSlider) return;
-
-    let isDown = false;
-    let startX = 0;
-    let scrollLeft = 0;
-
-    btsSlider.addEventListener("mousedown", (e) => {
-        isDown = true;
-        startX = e.pageX - btsSlider.offsetLeft;
-        scrollLeft = btsSlider.scrollLeft;
-        btsSlider.style.cursor = 'grabbing';
-    });
-
-    btsSlider.addEventListener("mouseleave", () => { isDown = false; btsSlider.style.cursor = 'grab'; });
-    btsSlider.addEventListener("mouseup", () => { isDown = false; btsSlider.style.cursor = 'grab'; });
-
-    btsSlider.addEventListener("mousemove", (e) => {
-        if (!isDown) return;
+    form.addEventListener('submit', e => {
         e.preventDefault();
-        const x = e.pageX - btsSlider.offsetLeft;
-        const walk = (x - startX) * 2;
-        btsSlider.scrollLeft = scrollLeft - walk;
-    });
-
-    btsSlider.addEventListener("touchstart", (e) => { startX = e.touches[0].pageX; scrollLeft = btsSlider.scrollLeft; });
-    btsSlider.addEventListener("touchmove", (e) => {
-        const x = e.touches[0].pageX;
-        const walk = (x - startX) * 2;
-        btsSlider.scrollLeft = scrollLeft - walk;
-    });
-});
-
-// --- LOGIKA RSVP AJAX (NOTIF DI TEMPAT) ---
-const rsvpForm = document.getElementById('rsvp-form');
-const rsvpContainer = document.getElementById('rsvp-container');
-
-if (rsvpForm) {
-    rsvpForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const btn = document.getElementById('btn-rsvp');
+        const btn = form.querySelector('button[type="submit"]');
         const originalText = btn.innerText;
         btn.innerText = "Processing...";
         btn.disabled = true;
 
-        const formData = new FormData(this);
-        fetch(this.action, {
-            method: 'POST',
-            body: formData,
-            headers: { 'Accept': 'application/json' }
-        }).then(response => {
-            if (response.ok) {
-                rsvpContainer.innerHTML = `
+        fetch(SCRIPT_URL, { method: 'POST', body: new FormData(form) })
+        .then(res => {
+            if (isRedirect) {
+                window.location.href = "thank-you.html";
+            } else {
+                document.getElementById('rsvp-container').innerHTML = `
                     <div class="text-center p-10 animate-zoom-in">
                         <div class="text-5xl mb-4">✅</div>
                         <h3 class="text-xl font-bold text-white uppercase tracking-widest mb-2">Konfirmasi Diterima</h3>
                         <p class="text-gray-400 text-sm italic">"Terima kasih, kehadiran Anda sangat berarti bagi kami."</p>
-                    </div>
-                `;
-            } else {
-                alert("Error sending RSVP.");
-                btn.disabled = false;
-                btn.innerText = originalText;
+                    </div>`;
             }
-        }).catch(() => { alert("Error sending RSVP."); btn.disabled = false; btn.innerText = originalText; });
+        })
+        .catch(() => { 
+            alert("Gagal mengirim data."); 
+            btn.disabled = false; 
+            btn.innerText = originalText; 
+        });
     });
+}
+
+// Inisialisasi pengiriman form
+submitToSheets('rsvp-form', false);
+submitToSheets('rating-form', true);
+
+// --- BTS SLIDER LOGIC ---
+function scrollBTS(direction) {
+    const slider = document.getElementById("bts-slider");
+    if (slider) slider.scrollBy({ left: direction * 320, behavior: "smooth" });
 }
