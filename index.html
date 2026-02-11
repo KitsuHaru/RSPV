@@ -184,7 +184,6 @@
             <section class="confirmation-section">
                 <div id="rsvp-container" class="confirmation-box" data-aos="zoom-in">
                     <h2 class="text-3xl font-black mb-12 text-center uppercase tracking-[0.2em] text-white">Confirmation</h2>
-                    
                     <form id="rsvp-form" class="space-y-8">
                         <div>
                             <label class="text-blue-500 uppercase text-xs font-black tracking-widest mb-3 block text-left">Guest Name</label>
@@ -209,7 +208,6 @@
                     
                     <form id="rating-form" class="space-y-4">
                         <input type="hidden" name="rating" id="rating-value" value="0">
-
                         <div id="star-rating" class="flex justify-center gap-2 mb-8">
                             <span data-star="1" class="star text-gray-600 text-4xl cursor-pointer hover:scale-125 transition-all">★</span>
                             <span data-star="2" class="star text-gray-600 text-4xl cursor-pointer hover:scale-125 transition-all">★</span>
@@ -220,6 +218,17 @@
                         <textarea name="wish" placeholder="Your wedding wish..." class="w-full bg-[#030b17] border border-gray-700 p-5 rounded-xl text-white outline-none focus:border-blue-500 h-32" required></textarea>
                         <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 py-4 rounded-xl font-bold uppercase tracking-widest text-white transition-all">Submit Rating</button>
                     </form>
+                </div>
+            </section>
+
+            <section class="py-20 bg-black/30 px-6">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-2xl font-bold text-white uppercase font-disney text-center mb-10 tracking-widest">
+                        Wedding Wishes
+                    </h2>
+                    <div id="wish-display-container" class="grid gap-6 md:grid-cols-2">
+                        <p class="text-gray-500 text-center col-span-full italic animate-pulse">Loading wishes...</p>
+                    </div>
                 </div>
             </section>
 

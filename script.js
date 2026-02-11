@@ -1,7 +1,7 @@
 AOS.init({ duration: 1200, once: true });
 
-// Masukkan URL Web App Google Apps Script lo di sini
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzzzVnNv4ECK3XScYN-6QCJv_jCIXke_VnlgY6roljWuxHnKZ1xLXIqg-ICqdTaW8r4/exec";
+// URL Web App Google Apps Script lo
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz8RwhbwlTCi3Sud8K_FA5wiqa9fnJ4zrTiTjRoCMBHdAQAmmXFFFCzRXu2bEKhN47q/exec";
 
 const bgMusic = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('music-control');
@@ -121,7 +121,7 @@ async function submitToSheets(formId, isRedirect) {
         btn.disabled = true;
 
         fetch(SCRIPT_URL, { method: 'POST', body: new FormData(form) })
-        .then(res => {
+        .then(() => {
             if (isRedirect) {
                 window.location.href = "thank-you.html";
             } else {
@@ -141,9 +141,42 @@ async function submitToSheets(formId, isRedirect) {
     });
 }
 
-// Inisialisasi pengiriman form
-submitToSheets('rsvp-form', false);
-submitToSheets('rating-form', true);
+// --- LOGIKA MENAMPILKAN WEDDING WISHES (GUEST BOOK) ---
+async function loadWishes() {
+    const container = document.getElementById('wish-display-container');
+    if (!container) return;
+
+    try {
+        const response = await fetch(SCRIPT_URL);
+        const data = await response.json();
+
+        if (!data || data.length === 0) {
+            container.innerHTML = `<p class="text-gray-500 text-center col-span-full italic">Belum ada pesan. Jadi yang pertama mendoakan!</p>`;
+            return;
+        }
+
+        container.innerHTML = data.map(item => `
+            <div class="bg-[#1a1d29] p-6 rounded-2xl border border-white/5 shadow-xl transition-all hover:scale-105">
+                <div class="flex items-center gap-1 mb-3">
+                    <span class="text-amber-400 text-xs">
+                        ${'★'.repeat(item.rating)}${'☆'.repeat(5 - item.rating)}
+                    </span>
+                </div>
+                <p class="text-gray-300 italic mb-4 font-light text-sm leading-relaxed">"${item.wish}"</p>
+                <h4 class="text-blue-400 font-bold uppercase text-[10px] tracking-widest">— ${item.nama}</h4>
+            </div>
+        `).join('');
+    } catch (error) {
+        container.innerHTML = `<p class="text-gray-500 text-center col-span-full italic">Gagal memuat pesan.</p>`;
+    }
+}
+
+// Inisialisasi
+document.addEventListener('DOMContentLoaded', () => {
+    submitToSheets('rsvp-form', false);
+    submitToSheets('rating-form', true);
+    loadWishes(); // Panggil fungsi buat nampilin wish pas halaman dibuka
+});
 
 // --- BTS SLIDER LOGIC ---
 function scrollBTS(direction) {
