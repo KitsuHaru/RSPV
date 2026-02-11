@@ -1,12 +1,23 @@
 AOS.init({ duration: 1200, once: true });
 
 // URL Web App Google Apps Script lo
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz8RwhbwlTCi3Sud8K_FA5wiqa9fnJ4zrTiTjRoCMBHdAQAmmXFFFCzRXu2bEKhN47q/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHAcTm5_ciLZ-UPQIEEIT3kJk3eodO4Gfl1DckXUNYMSWFBspldY0f_H-gsT8tiqzK/exec";
 
 const bgMusic = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('music-control');
 const musicIcon = document.getElementById('music-icon');
 let isMuted = false;
+
+// --- SINKRONISASI NAMA (PENTING BIAR EXCEL RAPI) ---
+const rsvpInputNama = document.getElementById('rsvp-nama');
+const ratingNamaHidden = document.getElementById('rating-nama-hidden');
+
+if (rsvpInputNama && ratingNamaHidden) {
+    // Copy nama ke hidden input setiap kali user ngetik
+    rsvpInputNama.addEventListener('input', (e) => {
+        ratingNamaHidden.value = e.target.value;
+    });
+}
 
 // --- LOGIKA BINTANG RATING ---
 const stars = document.querySelectorAll('.star');
@@ -50,7 +61,11 @@ if (to) {
     const entryName = document.getElementById('nama-tamu-entry');
     const rsvpName = document.getElementById('rsvp-nama');
     if (entryName) entryName.innerText = cleanName;
-    if (rsvpName) rsvpName.value = cleanName;
+    if (rsvpName) {
+        rsvpName.value = cleanName;
+        // Pastikan hidden input rating juga terisi otomatis dari URL
+        if(ratingNamaHidden) ratingNamaHidden.value = cleanName;
+    }
 }
 
 // --- FUNGSI UTAMA ---
@@ -150,12 +165,15 @@ async function loadWishes() {
         const response = await fetch(SCRIPT_URL);
         const data = await response.json();
 
-        if (!data || data.length === 0) {
+        // Filter: Hanya tampilkan data yang punya pesan (wish)
+        const filteredData = data.filter(item => item.wish && item.wish.trim() !== "");
+
+        if (filteredData.length === 0) {
             container.innerHTML = `<p class="text-gray-500 text-center col-span-full italic">Belum ada pesan. Jadi yang pertama mendoakan!</p>`;
             return;
         }
 
-        container.innerHTML = data.map(item => `
+        container.innerHTML = filteredData.map(item => `
             <div class="bg-[#1a1d29] p-6 rounded-2xl border border-white/5 shadow-xl transition-all hover:scale-105">
                 <div class="flex items-center gap-1 mb-3">
                     <span class="text-amber-400 text-xs">
@@ -175,11 +193,16 @@ async function loadWishes() {
 document.addEventListener('DOMContentLoaded', () => {
     submitToSheets('rsvp-form', false);
     submitToSheets('rating-form', true);
-    loadWishes(); // Panggil fungsi buat nampilin wish pas halaman dibuka
+    loadWishes(); 
 });
 
 // --- BTS SLIDER LOGIC ---
 function scrollBTS(direction) {
     const slider = document.getElementById("bts-slider");
     if (slider) slider.scrollBy({ left: direction * 320, behavior: "smooth" });
+}
+
+function scrollToAyat() {
+    const ayat = document.getElementById('ayat-section');
+    if(ayat) ayat.scrollIntoView({ behavior: 'smooth' });
 }
