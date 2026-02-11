@@ -91,7 +91,7 @@ function openModal(ep) {
     const storyData = {
         ep1: { title: "The Unwritten Script", desc: "''Setelah masa SMP dan SMA berlalu, semesta mempertemukan kita kembali. Tanpa rencana, tanpa naskah... tapi justru dari situlah cerita ini mulai ditulis dengan cara yang paling indah.''", img: "assets/img/ep1_modal.jpeg" },
         ep2: { title: "The Milestone", desc: "''Ini bukan pencapaian instan, tapi hasil dari proses panjang yang penuh usaha dan kesabaran. Setelah melewati banyak hal, akhirnya perjalanan ini sampai di titik penting yang layak dirayakan.''", img: "assets/img/ep2_modal.jpeg" },
-        ep3: { title: "Finding Home", desc: "''Semua ujian yang datang hanya membuat kita semakin kuat. Hingga akhirnya kita sadar: tujuan akhir bukan kemenangan, tapi tempat pulang. Dan kamu... adalah rumah itu.''", img: "assets/img/ep3_modal.jpeg" }
+        ep3: { title: "Finding Home", desc: "''Semua ujian yang datang hanya membuat kita semakin kuat. Hingga akhirnya kita sadar: tujuan akhir bukan kemenangan, tapi tempat pulang. Dan kamu... adalah rumah itu..''", img: "assets/img/ep3_modal.jpeg" }
     };
     if(!modal || !storyData[ep]) return;
     document.getElementById('modalTitle').innerText = storyData[ep].title;
