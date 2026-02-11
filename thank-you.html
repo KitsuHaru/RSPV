@@ -7,102 +7,63 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;600;900&display=swap" rel="stylesheet">
     <style>
-        body { 
-            background: radial-gradient(circle, #1a2a4d 0%, #030b17 100%); 
-            color: white; 
-            font-family: 'Inter', sans-serif; 
-            min-height: 100vh;
-        }
+        body { background: radial-gradient(circle, #1a2a4d 0%, #030b17 100%); color: white; font-family: 'Inter', sans-serif; min-height: 100vh; }
         .font-wedding { font-family: 'Dancing Script', cursive; }
-        .gradient-text {
-            background: linear-gradient(to right, #fff, #1f80e0, #fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .wish-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
-        }
-        .wish-card:hover {
-            transform: translateY(-5px);
-            border-color: #1f80e0;
-        }
+        .gradient-text { background: linear-gradient(to right, #fff, #1f80e0, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .wish-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); transition: transform 0.3s ease; }
+        .wish-card:hover { transform: translateY(-5px); border-color: #1f80e0; }
     </style>
 </head>
 <body class="flex flex-col items-center py-20 px-6 text-center">
-    
     <div class="max-w-2xl w-full">
         <div class="mb-6 text-5xl">✨</div>
         <h1 class="text-blue-400 font-black tracking-[0.3em] uppercase mb-4 text-xs md:text-sm">Response Recorded</h1>
         <h2 class="text-5xl md:text-7xl font-wedding gradient-text mb-6">Terima Kasih!</h2>
-        <p class="text-gray-400 text-lg italic font-light mx-auto mb-10 leading-relaxed">
+        <p class="text-gray-400 text-lg italic font-light mx-auto mb-10 leading-relaxed text-center">
             "Konfirmasi kehadiran dan pesan manis Anda telah kami terima. Sampai jumpa di hari bahagia kami!"
         </p>
-
         <div class="flex flex-col md:flex-row gap-4 justify-center mb-16">
-            <button onclick="showWishes()" class="bg-blue-600 hover:bg-blue-500 text-white px-10 py-3 rounded-full transition-all uppercase text-[10px] tracking-[0.3em] font-bold shadow-lg shadow-blue-500/20">
+            <button onclick="showWishes()" class="bg-blue-600 hover:bg-blue-500 text-white px-10 py-3 rounded-full uppercase text-[10px] tracking-[0.3em] font-bold shadow-lg shadow-blue-500/20">
                 View Wedding Wishes
             </button>
-            <a href="index.html" class="inline-block border border-gray-700 text-gray-500 px-10 py-3 rounded-full hover:text-white hover:border-white hover:bg-blue-600/10 transition-all uppercase text-[10px] tracking-[0.3em]">
+            <a href="/" class="inline-block border border-gray-700 text-gray-500 px-10 py-3 rounded-full hover:text-white hover:border-white hover:bg-blue-600/10 transition-all uppercase text-[10px] tracking-[0.3em]">
                 Back to Home
             </a>
         </div>
-
-        <div id="wishes-display" class="hidden space-y-6 text-left animate-fade-in">
+        <div id="wishes-display" class="hidden space-y-6 text-left">
             <h3 class="text-center text-blue-300 uppercase tracking-[0.2em] text-xs font-bold mb-8">What They Said</h3>
-            <div id="wishes-list" class="grid gap-6">
-                </div>
+            <div id="wishes-list" class="grid gap-6"></div>
         </div>
     </div>
-
     <script>
-        // Masukkan URL Web App Google Apps Script lo yang sama dengan di script.js
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHAcTm5_ciLZ-UPQIEEIT3kJk3eodO4Gfl1DckXUNYMSWFBspldY0f_H-gsT8tiqzK/exec";
-
         async function showWishes() {
             const displayDiv = document.getElementById('wishes-display');
             const listDiv = document.getElementById('wishes-list');
-            
             displayDiv.classList.remove('hidden');
             listDiv.innerHTML = "<p class='text-center text-gray-500 italic'>Gathering memories...</p>";
-            
             try {
                 const response = await fetch(SCRIPT_URL);
                 const data = await response.json();
-                
-                // Filter: Hanya tampilkan data yang punya wish
                 const filteredData = data.filter(item => item.wish && item.wish.trim() !== "");
-
                 if (filteredData.length === 0) {
-                    listDiv.innerHTML = "<p class='text-center text-gray-500 italic'>Belum ada pesan yang dibagikan.</p>";
+                    listDiv.innerHTML = "<p class='text-center text-gray-500 italic text-center'>Belum ada pesan yang dibagikan.</p>";
                     return;
                 }
-
-                // Tampilkan data (dibalik biar yang terbaru di atas)
                 listDiv.innerHTML = filteredData.reverse().map(item => `
                     <div class="wish-card p-6 rounded-2xl">
-                        <div class="flex items-center gap-1 mb-3">
-                            <span class="text-amber-400 text-xs">
-                                ${'★'.repeat(item.rating)}${'☆'.repeat(5 - item.rating)}
-                            </span>
+                        <div class="flex items-center gap-1 mb-3 text-left">
+                            <span class="text-amber-400 text-xs">${'★'.repeat(item.rating)}${'☆'.repeat(5 - item.rating)}</span>
                         </div>
-                        <p class="text-gray-300 italic mb-4 font-light text-sm leading-relaxed">"${item.wish}"</p>
+                        <p class="text-gray-300 italic mb-4 font-light text-sm leading-relaxed text-left">"${item.wish}"</p>
                         <div class="flex justify-between items-center border-t border-white/5 pt-4">
                             <h4 class="text-blue-400 font-bold uppercase text-[10px] tracking-widest">— ${item.nama}</h4>
                             <span class="text-[9px] text-gray-600 uppercase tracking-tighter">${item.status || ''}</span>
                         </div>
                     </div>
                 `).join('');
-                
-                // Scroll halus ke daftar pesan
                 displayDiv.scrollIntoView({ behavior: 'smooth' });
-
-            } catch (error) {
-                console.error('Error:', error);
-                listDiv.innerHTML = "<p class='text-center text-red-400 italic'>Gagal memuat pesan. Coba lagi nanti ya.</p>";
-            }
+            } catch (error) { listDiv.innerHTML = "<p class='text-center text-red-400 italic text-center'>Gagal memuat pesan.</p>"; }
         }
     </script>
 </body>

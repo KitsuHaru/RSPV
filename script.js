@@ -1,6 +1,5 @@
 AOS.init({ duration: 1200, once: true });
 
-// URL Web App Google Apps Script lo
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHAcTm5_ciLZ-UPQIEEIT3kJk3eodO4Gfl1DckXUNYMSWFBspldY0f_H-gsT8tiqzK/exec";
 
 const bgMusic = document.getElementById('bgMusic');
@@ -8,12 +7,11 @@ const musicBtn = document.getElementById('music-control');
 const musicIcon = document.getElementById('music-icon');
 let isMuted = false;
 
-// --- SINKRONISASI NAMA (PENTING BIAR EXCEL RAPI) ---
+// --- SINKRONISASI NAMA UNTUK EXCEL ---
 const rsvpInputNama = document.getElementById('rsvp-nama');
 const ratingNamaHidden = document.getElementById('rating-nama-hidden');
 
 if (rsvpInputNama && ratingNamaHidden) {
-    // Copy nama ke hidden input setiap kali user ngetik
     rsvpInputNama.addEventListener('input', (e) => {
         ratingNamaHidden.value = e.target.value;
     });
@@ -45,7 +43,6 @@ setInterval(() => {
     const now = new Date().getTime();
     const gap = weddingDate - now;
     const second = 1000, minute = second * 60, hour = minute * 60, day = hour * 24;
-    
     const d = document.getElementById("days"), h = document.getElementById("hours"), m = document.getElementById("minutes"), s = document.getElementById("seconds");
     if(d) d.innerText = Math.floor(gap / day);
     if(h) h.innerText = Math.floor((gap % day) / hour);
@@ -63,14 +60,12 @@ if (to) {
     if (entryName) entryName.innerText = cleanName;
     if (rsvpName) {
         rsvpName.value = cleanName;
-        // Pastikan hidden input rating juga terisi otomatis dari URL
         if(ratingNamaHidden) ratingNamaHidden.value = cleanName;
     }
 }
 
-// --- FUNGSI UTAMA ---
 function activateDisney() {
-    bgMusic.play().catch(() => console.log("Audio interaction needed"));
+    bgMusic.play().catch(() => console.log("Interaction needed"));
     musicBtn.classList.remove('hidden');
     const entryPage = document.getElementById('entry-page');
     const mainContent = document.getElementById('main-content');
@@ -123,23 +118,19 @@ function toggleMusic() {
     isMuted = !isMuted;
 }
 
-// --- GOOGLE SHEETS FORM HANDLER ---
 async function submitToSheets(formId, isRedirect) {
     const form = document.getElementById(formId);
     if (!form) return;
-
     form.addEventListener('submit', e => {
         e.preventDefault();
         const btn = form.querySelector('button[type="submit"]');
         const originalText = btn.innerText;
         btn.innerText = "Processing...";
         btn.disabled = true;
-
         fetch(SCRIPT_URL, { method: 'POST', body: new FormData(form) })
         .then(() => {
-            if (isRedirect) {
-                window.location.href = "thank-you.html";
-            } else {
+            if (isRedirect) { window.location.href = "thank-you"; } 
+            else {
                 document.getElementById('rsvp-container').innerHTML = `
                     <div class="text-center p-10 animate-zoom-in">
                         <div class="text-5xl mb-4">✅</div>
@@ -148,55 +139,15 @@ async function submitToSheets(formId, isRedirect) {
                     </div>`;
             }
         })
-        .catch(() => { 
-            alert("Gagal mengirim data."); 
-            btn.disabled = false; 
-            btn.innerText = originalText; 
-        });
+        .catch(() => { alert("Gagal mengirim data."); btn.disabled = false; btn.innerText = originalText; });
     });
 }
 
-// --- LOGIKA MENAMPILKAN WEDDING WISHES (GUEST BOOK) ---
-async function loadWishes() {
-    const container = document.getElementById('wish-display-container');
-    if (!container) return;
-
-    try {
-        const response = await fetch(SCRIPT_URL);
-        const data = await response.json();
-
-        // Filter: Hanya tampilkan data yang punya pesan (wish)
-        const filteredData = data.filter(item => item.wish && item.wish.trim() !== "");
-
-        if (filteredData.length === 0) {
-            container.innerHTML = `<p class="text-gray-500 text-center col-span-full italic">Belum ada pesan. Jadi yang pertama mendoakan!</p>`;
-            return;
-        }
-
-        container.innerHTML = filteredData.map(item => `
-            <div class="bg-[#1a1d29] p-6 rounded-2xl border border-white/5 shadow-xl transition-all hover:scale-105">
-                <div class="flex items-center gap-1 mb-3">
-                    <span class="text-amber-400 text-xs">
-                        ${'★'.repeat(item.rating)}${'☆'.repeat(5 - item.rating)}
-                    </span>
-                </div>
-                <p class="text-gray-300 italic mb-4 font-light text-sm leading-relaxed">"${item.wish}"</p>
-                <h4 class="text-blue-400 font-bold uppercase text-[10px] tracking-widest">— ${item.nama}</h4>
-            </div>
-        `).join('');
-    } catch (error) {
-        container.innerHTML = `<p class="text-gray-500 text-center col-span-full italic">Gagal memuat pesan.</p>`;
-    }
-}
-
-// Inisialisasi
 document.addEventListener('DOMContentLoaded', () => {
     submitToSheets('rsvp-form', false);
     submitToSheets('rating-form', true);
-    loadWishes(); 
 });
 
-// --- BTS SLIDER LOGIC ---
 function scrollBTS(direction) {
     const slider = document.getElementById("bts-slider");
     if (slider) slider.scrollBy({ left: direction * 320, behavior: "smooth" });
