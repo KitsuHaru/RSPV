@@ -8,13 +8,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&family=Inter:wght@300;400;600;800&family=Noto+Sans+Arabic:wght@600&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .font-wedding { font-family: 'Dancing Script', cursive; }
+        .gradient-text {
+            background: linear-gradient(to right, #fff, #1f80e0, #fff);
+            -webkit-background-clip: text; /* Vendor Prefix */
+            background-clip: text;         /* Standard Property (Fix Warning) */
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
 </head>
 <body class="bg-stone-50 text-gray-800">
     <div id="entry-page">
-        <h2 class="text-gray-400 text-xl tracking-[0.3em] mb-10 uppercase font-light w-full">Who's Watching?</h2>
+        <h2 class="text-gray-400 text-xl tracking-[0.3em] mb-10 uppercase font-light w-full text-center">Who's Watching?</h2>
         <div class="flex flex-col items-center group cursor-pointer" onclick="activateDisney()">
             <div class="avatar-disney">🐼</div>
-            <p id="nama-tamu-entry" class="text-white text-3xl font-bold tracking-tight capitalize mt-6">Tamu Undangan</p>
+            <p id="nama-tamu-entry" class="text-white text-3xl font-bold tracking-tight capitalize mt-6 text-center">Tamu Undangan</p>
         </div>
         <button class="mt-14 px-10 py-2 border border-gray-600 text-gray-500 hover:text-white hover:border-white transition uppercase text-xs tracking-[0.3em]" onclick="activateDisney()">
             Enter Premiere
@@ -32,189 +41,212 @@
     </audio>
 
     <div id="main-content" class="hidden opacity-0 transition-opacity duration-1000">
-        <div id="sacred-section">
-            <section class="h-screen flex flex-col justify-center items-center text-center text-white hero-bg px-4 relative">
-                <div data-aos="fade-up" data-aos-duration="1500">
-                    <h3 class="text-xl mb-4 tracking-[0.3em] uppercase font-light">The Wedding Of</h3>
-                    <h1 class="text-5xl md:text-8xl font-wedding mb-6 text-amber-200">Adam & Tyas</h1>
-                    <p class="text-lg md:text-2xl tracking-widest border-y border-white/30 py-2 inline-block px-8">14 . 02 . 2026</p>
-                </div>
-                <div class="scroll-down cursor-pointer" onclick="scrollToAyat()">
-                    <div class="mouse"><div class="wheel"></div></div>
-                    <span>Scroll Down</span>
-                </div>
-            </section>
-
-            <section class="py-16 bg-white text-center">
-                <h4 class="text-amber-800 font-bold uppercase tracking-widest mb-6">Coming Soon to Your Heart</h4>
-                <div id="countdown" class="flex justify-center gap-4 md:gap-8 text-gray-800">
-                    <div class="flex flex-col"><span id="days" class="text-4xl font-bold text-blue-600">00</span><small class="text-[10px] uppercase tracking-tighter">Days</small></div>
-                    <div class="flex flex-col"><span id="hours" class="text-4xl font-bold text-blue-600">00</span><small class="text-[10px] uppercase tracking-tighter">Hours</small></div>
-                    <div class="flex flex-col"><span id="minutes" class="text-4xl font-bold text-blue-600">00</span><small class="text-[10px] uppercase tracking-tighter">Mins</small></div>
-                    <div class="flex flex-col"><span id="seconds" class="text-4xl font-bold text-blue-600">00</span><small class="text-[10px] uppercase tracking-tighter">Secs</small></div>
-                </div>
-            </section>
-
-            <section id="ayat-section" class="py-20 px-6 text-center bg-white border-y border-stone-200">
-                <div class="max-w-4xl mx-auto" data-aos="fade-up">
-                    <p class="font-arabic text-3xl mb-6 text-amber-800" dir="rtl">وَمِن كُلِّ شَىْءٍ خَلَقْنَا زَوْجَيْنِ لَعَلَّكُمْ تَذَكَّرُونَ</p>
-                    <p class="italic text-gray-600 text-lg">"Dan segala sesuatu Kami ciptakan berpasang-pasangan agar kamu mengingat (kebesaran Allah)."</p>
-                    <p class="italic text-gray-600 text-lg">Adh-Dhariyat Ayat 49</p>
-                </div>
-            </section>
-
-            <section class="py-20 bg-stone-50 px-6 text-center">
-                <div class="grid md:grid-cols-2 gap-16 max-w-6xl mx-auto">
-                    <div data-aos="fade-right">
-                        <div class="w-56 h-72 rounded-t-full border-8 border-white shadow-xl overflow-hidden mx-auto bg-gray-200">
-                            <img src="assets/img/foto_ramdani.jpg" class="w-full h-full object-cover">
-                        </div>
-                        <h3 class="text-2xl font-bold text-amber-900 mt-6 font-disney uppercase">Mohamad Ramdani Yumansyah</h3>
-                        <p class="text-gray-500 italic text-sm">Putra dari Bpk. Muhamad Imanudin & Ibu Wahyuni</p>
+        <div id="all-content-wrapper">
+            <div id="sacred-section">
+                <section class="h-screen flex flex-col justify-center items-center text-center text-white hero-bg px-4 relative">
+                    <div data-aos="fade-up" data-aos-duration="1500">
+                        <h3 class="text-xl mb-4 tracking-[0.3em] uppercase font-light text-center">The Wedding Of</h3>
+                        <h1 class="text-5xl md:text-8xl font-wedding mb-6 text-amber-200 text-center">Adam & Tyas</h1>
+                        <p class="text-lg md:text-2xl tracking-widest border-y border-white/30 py-2 inline-block px-8 text-center">14 . 02 . 2026</p>
                     </div>
-                    <div data-aos="fade-left">
-                        <div class="w-56 h-72 rounded-t-full border-8 border-white shadow-xl overflow-hidden mx-auto bg-gray-200">
-                            <img src="assets/img/foto_tyas.jpeg" class="w-full h-full object-cover">
-                        </div>
-                        <h3 class="text-2xl font-bold text-amber-900 mt-6 font-disney uppercase">Sholehati Nuringtyas Wibowo</h3>
-                        <p class="text-gray-500 italic text-sm">Putri dari Bpk. Eko Wahyu & Ibu Ernik Winarni</p>
+                    <div class="scroll-down cursor-pointer" onclick="scrollToAyat()">
+                        <div class="mouse"><div class="wheel"></div></div>
+                        <span>Scroll Down</span>
                     </div>
-                </div>
-            </section>
+                </section>
 
-           <section class="py-20 bg-stone-100 flex justify-center px-4">
-                <div class="card-glass p-8 md:p-12 rounded-3xl max-w-2xl w-full text-center shadow-2xl" data-aos="zoom-in">
-                    <h4 class="text-amber-800 font-bold uppercase tracking-widest mb-4">SAVE THE DATE</h4>
-                    <p class="text-3xl md:text-4xl font-bold text-gray-800 mb-2 font-disney">14 FEBRUARI 2026</p>
-                    <p class="text-lg font-semibold text-gray-700 mb-2 uppercase tracking-widest">Akad Nikah</p>
-                    <p class="text-gray-600 mb-4 italic text-sm uppercase">Pukul 14.00 WIB – Selesai</p>
-                    <p class="text-gray-600 mb-8 italic text-sm uppercase">Mang Kabayan Bekasi (Harapan Indah)</p>
-                    <button onclick="scrollToDisney()" class="bg-blue-600 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-blue-700 transition shadow-blue-500/50 shadow-lg">
-                        ▶ Explore Journey Premiere
-                    </button>
-                </div>
-            </section>
+                <section class="py-16 bg-white text-center">
+                    <h4 class="text-amber-800 font-bold uppercase tracking-widest mb-6">Coming Soon to Your Heart</h4>
+                    <div id="countdown" class="flex justify-center gap-4 md:gap-8 text-gray-800">
+                        <div class="flex flex-col"><span id="days" class="text-4xl font-bold text-blue-600">00</span><small class="text-[10px] uppercase tracking-tighter">Days</small></div>
+                        <div class="flex flex-col"><span id="hours" class="text-4xl font-bold text-blue-600">00</span><small class="text-[10px] uppercase tracking-tighter">Hours</small></div>
+                        <div class="flex flex-col"><span id="minutes" class="text-4xl font-bold text-blue-600">00</span><small class="text-[10px] uppercase tracking-tighter">Mins</small></div>
+                        <div class="flex flex-col"><span id="seconds" class="text-4xl font-bold text-blue-600">00</span><small class="text-[10px] uppercase tracking-tighter">Secs</small></div>
+                    </div>
+                </section>
+
+                <section id="ayat-section" class="py-20 px-6 text-center bg-white border-y border-stone-200">
+                    <div class="max-w-4xl mx-auto" data-aos="fade-up">
+                        <p class="font-arabic text-3xl mb-6 text-amber-800" dir="rtl text-center">وَمِن كُلِّ شَىْءٍ خَلَقْنَا زَوْجَيْنِ لَعَلَّكُمْ تَذَكَّرُونَ</p>
+                        <p class="italic text-gray-600 text-lg text-center">"Dan segala sesuatu Kami ciptakan berpasang-pasangan agar kamu mengingat (kebesaran Allah)."</p>
+                        <p class="italic text-gray-600 text-lg text-center">Adh-Dhariyat Ayat 49</p>
+                    </div>
+                </section>
+
+                <section class="py-20 bg-stone-50 px-6 text-center">
+                    <div class="grid md:grid-cols-2 gap-16 max-w-6xl mx-auto">
+                        <div data-aos="fade-right">
+                            <div class="w-56 h-72 rounded-t-full border-8 border-white shadow-xl overflow-hidden mx-auto bg-gray-200">
+                                <img src="assets/img/foto_ramdani.jpg" class="w-full h-full object-cover">
+                            </div>
+                            <h3 class="text-2xl font-bold text-amber-900 mt-6 font-disney uppercase text-center">Mohamad Ramdani Yumansyah</h3>
+                            <p class="text-gray-500 italic text-sm text-center">Putra dari Bpk. Muhamad Imanudin & Ibu Wahyuni</p>
+                        </div>
+                        <div data-aos="fade-left">
+                            <div class="w-56 h-72 rounded-t-full border-8 border-white shadow-xl overflow-hidden mx-auto bg-gray-200">
+                                <img src="assets/img/foto_tyas.jpeg" class="w-full h-full object-cover">
+                            </div>
+                            <h3 class="text-2xl font-bold text-amber-900 mt-6 font-disney uppercase text-center">Sholehati Nuringtyas Wibowo</h3>
+                            <p class="text-gray-500 italic text-sm text-center">Putri dari Bpk. Eko Wahyu & Ibu Ernik Winarni</p>
+                        </div>
+                    </div>
+                </section>
+
+               <section class="py-20 bg-stone-100 flex justify-center px-4">
+                    <div class="card-glass p-8 md:p-12 rounded-3xl max-w-2xl w-full text-center shadow-2xl" data-aos="zoom-in">
+                        <h4 class="text-amber-800 font-bold uppercase tracking-widest mb-4">SAVE THE DATE</h4>
+                        <p class="text-3xl md:text-4xl font-bold text-gray-800 mb-2 font-disney">14 FEBRUARI 2026</p>
+                        <p class="text-lg font-semibold text-gray-700 mb-2 uppercase tracking-widest">Akad Nikah</p>
+                        <p class="text-gray-600 mb-4 italic text-sm uppercase">Pukul 14.00 WIB – Selesai</p>
+                        <p class="text-gray-600 mb-8 italic text-sm uppercase">Mang Kabayan Bekasi (Harapan Indah)</p>
+                        <button onclick="scrollToDisney()" class="bg-blue-600 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-blue-700 transition shadow-blue-500/50 shadow-lg">
+                            ▶ Explore Journey Premiere
+                        </button>
+                    </div>
+                </section>
+            </div>
+
+            <div id="disney-experience" class="locked-experience">
+                <section class="disney-hero">
+                    <div class="max-w-5xl z-10 px-8 md:px-20" data-aos="fade-right">
+                        <p class="text-blue-400 font-extrabold tracking-[0.4em] uppercase mb-4 text-xs md:text-sm text-left">A Disney Original Story Presentation</p>
+                        <h1 class="disney-title gradient-text leading-tight mb-4 text-left">WHERE WE BELONG</h1>
+                        <h2 class="text-3xl md:text-5xl font-wedding text-blue-300 mb-8 italic text-left">Finding Home</h2>
+                        <div class="flex flex-wrap items-center gap-4 text-gray-300 mb-10 font-semibold text-sm info-row">
+                            <span class="text-green-400 text-lg">100% Match</span>
+                            <span class="text-lg">2026</span>
+                            <span class="border-2 border-gray-600 px-3 py-1 rounded-md text-xs uppercase">U/A 13+</span>
+                            <span class="text-gray-400 font-medium">4K Ultra HD • Dolby Atmos</span>
+                        </div>
+                        <p class="text-gray-300 text-xl md:text-2xl leading-relaxed italic font-light max-w-3xl text-left">
+                            "Beberapa cerita tidak ditulis untuk terburu-buru. Ia ditulis untuk bertahan, diuji oleh waktu, dan akhirnya menemukan pelabuhan yang paling tenang."
+                        </p>
+                    </div>
+                </section>
+
+                <section id="story" class="py-24 px-8 md:px-20">
+                    <h2 class="text-3xl font-bold mb-10 border-l-4 border-blue-600 pl-6 tracking-tight text-white uppercase font-disney text-left">Episodes: The Journey</h2>
+                    <div class="scroller">
+                        <div class="disney-card cursor-pointer" onclick="openModal('ep1')">
+                            <div class="card-img-wrapper"><img src="assets/img/ep1.jpeg" class="w-full h-full object-cover"></div>
+                            <div class="p-8 text-left">
+                                <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block text-left">S01 E01 • THE FIRST CHAPTER</span>
+                                <h3 class="text-2xl font-bold text-white mb-4 uppercase text-left">THE FIRST CHAPTER</h3>
+                                <p class="text-gray-400 text-base leading-relaxed font-light text-left">Setelah melewati banyak fase kehidupan, semesta mempertemukan dua hati yang pernah berjalan sendiri-sendiri.</p>
+                            </div>
+                        </div>
+                        <div class="disney-card cursor-pointer" onclick="openModal('ep2')">
+                            <div class="card-img-wrapper"><img src="assets/img/ep2.jpeg" class="w-full h-full object-cover"></div>
+                            <div class="p-8 text-left">
+                                <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block text-left">S01 E02 • THE LOVE ARC</span>
+                                <h3 class="text-2xl font-bold text-white mb-4 uppercase text-left">THE LOVE ARC</h3>
+                                <p class="text-gray-400 text-base leading-relaxed font-light text-left">Perjalanan ini tidak selalu mudah, tapi justru di setiap prosesnya, cinta belajar menjadi lebih kuat.</p>
+                            </div>
+                        </div>
+                        <div class="disney-card cursor-pointer" onclick="openModal('ep3')">
+                            <div class="card-img-wrapper"><img src="assets/img/ep3.jpeg" class="w-full h-full object-cover"></div>
+                            <div class="p-8 text-left">
+                                <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block text-left">FINALE • FOREVER PREMIERE</span>
+                                <h3 class="text-2xl font-bold text-white mb-4 text-left">FOREVER PREMIERE</h3>
+                                <p class="text-gray-400 text-base leading-relaxed font-light text-left">Setelah melewati banyak musim, akhirnya mereka sampai pada satu keputusan paling indah.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="py-24 px-8 md:px-20 bg-black/40">
+                    <div class="bts-header mb-10 text-left">
+                        <h2 class="text-2xl font-bold border-l-4 border-blue-600 pl-6 tracking-tight text-white uppercase font-disney text-left">Behind The Scenes</h2>
+                        <div class="bts-controls">
+                            <button onclick="scrollBTS(-1)" class="bts-btn"><span>‹</span></button>
+                            <button onclick="scrollBTS(1)" class="bts-btn"><span>›</span></button>
+                        </div>
+                    </div>
+                    <div id="bts-slider" class="bts-slider">
+                        <div class="bts-item"><img src="assets/img/bts1.jpg"></div>
+                        <div class="bts-item"><img src="assets/img/bts2.jpg"></div>
+                        <div class="bts-item"><img src="assets/img/bts3.jpg"></div>
+                        <div class="bts-item"><img src="assets/img/bts4.jpg"></div>
+                        <div class="bts-item"><img src="assets/img/bts5.jpg"></div>
+                    </div>
+                </section>
+
+                <section class="confirmation-section">
+                    <div id="rsvp-container" class="confirmation-box" data-aos="zoom-in">
+                        <h2 class="text-3xl font-black mb-12 text-center uppercase tracking-[0.2em] text-white">Confirmation</h2>
+                        <form id="rsvp-form" class="space-y-8 text-left">
+                            <div>
+                                <label class="text-blue-500 uppercase text-xs font-black tracking-widest mb-3 block">Guest Name</label>
+                                <input type="text" name="nama" id="rsvp-nama" placeholder="Nama Anda" class="w-full bg-[#030b17] border border-gray-700 p-5 rounded-xl text-white text-lg outline-none focus:border-blue-500 transition-all shadow-inner" required>
+                            </div>
+                            <div>
+                                <label class="text-blue-500 uppercase text-xs font-black tracking-widest mb-3 block text-left">Attendance Status</label>
+                                <select name="status" class="w-full bg-[#030b17] border border-gray-700 p-5 rounded-xl text-white text-lg outline-none focus:border-blue-500 transition-all">
+                                    <option value="Hadir">Hadir</option>
+                                    <option value="Tidak">Berhalangan</option>
+                                </select>
+                            </div>
+                            <button type="submit" id="btn-rsvp" class="w-full bg-blue-600 hover:bg-blue-500 py-6 rounded-xl font-black uppercase tracking-widest text-lg transition-all shadow-xl shadow-blue-500/30 text-white">Submit RSVP</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="py-24 px-8 md:px-20 bg-black/20">
+                    <div id="rating-container" class="max-w-2xl mx-auto bg-[#1a1d29] p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl">
+                        <h2 class="text-2xl font-bold mb-4 text-white uppercase font-disney text-center">Rate This Journey</h2>
+                        <p class="text-gray-400 text-center mb-8 italic">Leave a wish for the happy couple</p>
+                        <form id="rating-form" class="space-y-4 text-left">
+                            <input type="hidden" name="nama" id="rating-nama-hidden">
+                            <input type="hidden" name="rating" id="rating-value" value="0">
+                            <div id="star-rating" class="flex justify-center gap-2 mb-8">
+                                <span data-star="1" class="star text-gray-600 text-4xl cursor-pointer hover:scale-125 transition-all">★</span>
+                                <span data-star="2" class="star text-gray-600 text-4xl cursor-pointer hover:scale-125 transition-all">★</span>
+                                <span data-star="3" class="star text-gray-600 text-4xl cursor-pointer hover:scale-125 transition-all">★</span>
+                                <span data-star="4" class="star text-gray-600 text-4xl cursor-pointer hover:scale-125 transition-all">★</span>
+                                <span data-star="5" class="star text-gray-600 text-4xl cursor-pointer hover:scale-125 transition-all">★</span>
+                            </div>
+                            <textarea name="wish" placeholder="Your wedding wish..." class="w-full bg-[#030b17] border border-gray-700 p-5 rounded-xl text-white outline-none focus:border-blue-500 h-32" required></textarea>
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 py-4 rounded-xl font-bold uppercase tracking-widest text-white transition-all text-white">Submit Rating</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="py-20 bg-[#030b17] px-6 text-center border-t border-gray-800">
+                    <div class="max-w-4xl mx-auto" data-aos="fade-up">
+                        <h2 class="font-disney text-3xl font-bold text-white mb-4 uppercase tracking-widest text-center">Wedding Location</h2>
+                        <p class="text-gray-400 mb-10 italic uppercase text-center">Mang Kabayan Bekasi (Harapan Indah)</p>
+                        <a href="https://share.google/DFcgfysS9DdZsXOhW" target="_blank" class="inline-block bg-[#1f80e0] text-white px-10 py-5 rounded-full font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-500/20 uppercase tracking-widest">
+                            📍 Open in Google Maps
+                        </a>
+                    </div>
+                </section>
+
+                <footer class="py-24 text-center border-t border-gray-900 bg-black">
+                    <h2 class="font-wedding text-6xl text-blue-500 mb-6 text-center">Ramdani & Tyas</h2>
+                    <p class="text-gray-600 text-xs tracking-[0.6em] uppercase italic text-center">Wedding Premiere • Produced by Mr. Yu</p>
+                </footer>
+            </div>
         </div>
 
-        <div id="disney-experience" class="locked-experience">
-            <section class="disney-hero">
-                <div class="max-w-5xl z-10 px-8 md:px-20" data-aos="fade-right">
-                    <p class="text-blue-400 font-extrabold tracking-[0.4em] uppercase mb-4 text-xs md:text-sm text-left">A Disney Original Story Presentation</p>
-                    <h1 class="disney-title gradient-text leading-tight mb-4 text-left">WHERE WE BELONG</h1>
-                    <h2 class="text-3xl md:text-5xl font-wedding text-blue-300 mb-8 italic text-left">Finding Home</h2>
-                    <div class="flex flex-wrap items-center gap-4 text-gray-300 mb-10 font-semibold text-sm info-row">
-                        <span class="text-green-400 text-lg">100% Match</span>
-                        <span class="text-lg">2026</span>
-                        <span class="border-2 border-gray-600 px-3 py-1 rounded-md text-xs uppercase">U/A 13+</span>
-                        <span class="text-gray-400 font-medium">4K Ultra HD • Dolby Atmos</span>
-                    </div>
-                    <p class="text-gray-300 text-xl md:text-2xl leading-relaxed italic font-light max-w-3xl text-left">
-                        "Beberapa cerita tidak ditulis untuk terburu-buru. Ia ditulis untuk bertahan, diuji oleh waktu, dan akhirnya menemukan pelabuhan yang paling tenang."
-                    </p>
-                </div>
-            </section>
-
-            <section id="story" class="py-24 px-8 md:px-20">
-                <h2 class="text-3xl font-bold mb-10 border-l-4 border-blue-600 pl-6 tracking-tight text-white uppercase font-disney text-left">Episodes: The Journey</h2>
-                <div class="scroller">
-                    <div class="disney-card cursor-pointer" onclick="openModal('ep1')">
-                        <div class="card-img-wrapper"><img src="assets/img/ep1.jpeg" class="w-full h-full object-cover"></div>
-                        <div class="p-8 text-left">
-                            <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block text-left">S01 E01 • THE FIRST CHAPTER</span>
-                            <h3 class="text-2xl font-bold text-white mb-4 uppercase">THE FIRST CHAPTER</h3>
-                            <p class="text-gray-400 text-base leading-relaxed font-light text-left">Setelah melewati banyak fase kehidupan, semesta mempertemukan dua hati yang pernah berjalan sendiri-sendiri.</p>
-                        </div>
-                    </div>
-                    <div class="disney-card cursor-pointer" onclick="openModal('ep2')">
-                        <div class="card-img-wrapper"><img src="assets/img/ep2.jpeg" class="w-full h-full object-cover"></div>
-                        <div class="p-8 text-left">
-                            <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block">S01 E02 • THE LOVE ARC</span>
-                            <h3 class="text-2xl font-bold text-white mb-4 uppercase">THE LOVE ARC</h3>
-                            <p class="text-gray-400 text-base leading-relaxed font-light">Perjalanan ini tidak selalu mudah, tapi justru di setiap prosesnya, cinta belajar menjadi lebih kuat.</p>
-                        </div>
-                    </div>
-                    <div class="disney-card cursor-pointer" onclick="openModal('ep3')">
-                        <div class="card-img-wrapper"><img src="assets/img/ep3.jpeg" class="w-full h-full object-cover"></div>
-                        <div class="p-8 text-left">
-                            <span class="text-blue-500 text-xs font-black uppercase tracking-widest mb-3 block">FINALE • FOREVER PREMIERE</span>
-                            <h3 class="text-2xl font-bold text-white mb-4">FOREVER PREMIERE</h3>
-                            <p class="text-gray-400 text-base leading-relaxed font-light">Setelah melewati banyak musim, akhirnya mereka sampai pada satu keputusan paling indah.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="py-24 px-8 md:px-20 bg-black/40">
-                <div class="bts-header mb-10 text-left">
-                    <h2 class="text-2xl font-bold border-l-4 border-blue-600 pl-6 tracking-tight text-white uppercase font-disney">Behind The Scenes</h2>
-                    <div class="bts-controls">
-                        <button onclick="scrollBTS(-1)" class="bts-btn"><span>‹</span></button>
-                        <button onclick="scrollBTS(1)" class="bts-btn"><span>›</span></button>
-                    </div>
-                </div>
-                <div id="bts-slider" class="bts-slider">
-                    <div class="bts-item"><img src="assets/img/bts1.jpg"></div>
-                    <div class="bts-item"><img src="assets/img/bts2.jpg"></div>
-                    <div class="bts-item"><img src="assets/img/bts3.jpg"></div>
-                    <div class="bts-item"><img src="assets/img/bts4.jpg"></div>
-                    <div class="bts-item"><img src="assets/img/bts5.jpg"></div>
-                </div>
-            </section>
-
-            <section class="confirmation-section">
-                <div id="rsvp-container" class="confirmation-box" data-aos="zoom-in">
-                    <h2 class="text-3xl font-black mb-12 text-center uppercase tracking-[0.2em] text-white">Confirmation</h2>
-                    <form id="rsvp-form" class="space-y-8 text-left">
-                        <div>
-                            <label class="text-blue-500 uppercase text-xs font-black tracking-widest mb-3 block">Guest Name</label>
-                            <input type="text" name="nama" id="rsvp-nama" placeholder="Nama Anda" class="w-full bg-[#030b17] border border-gray-700 p-5 rounded-xl text-white text-lg outline-none focus:border-blue-500 transition-all shadow-inner" required>
-                        </div>
-                        <div>
-                            <label class="text-blue-500 uppercase text-xs font-black tracking-widest mb-3 block">Attendance Status</label>
-                            <select name="status" class="w-full bg-[#030b17] border border-gray-700 p-5 rounded-xl text-white text-lg outline-none focus:border-blue-500 transition-all">
-                                <option value="Hadir">Hadir</option>
-                                <option value="Tidak">Berhalangan</option>
-                            </select>
-                        </div>
-                        <button type="submit" id="btn-rsvp" class="w-full bg-blue-600 hover:bg-blue-500 py-6 rounded-xl font-black uppercase tracking-widest text-lg transition-all shadow-xl shadow-blue-500/30 text-white">Submit RSVP</button>
-                    </form>
-                </div>
-            </section>
-
-            <section class="py-24 px-8 md:px-20 bg-black/20">
-                <div id="rating-container" class="max-w-2xl mx-auto bg-[#1a1d29] p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl">
-                    <h2 class="text-2xl font-bold mb-4 text-white uppercase font-disney text-center">Rate This Journey</h2>
-                    <p class="text-gray-400 text-center mb-8 italic">Leave a wish for the happy couple</p>
-                    <form id="rating-form" class="space-y-4 text-left">
-                        <input type="hidden" name="nama" id="rating-nama-hidden">
-                        <input type="hidden" name="rating" id="rating-value" value="0">
-                        <div id="star-rating" class="flex justify-center gap-2 mb-8">
-                            <span data-star="1" class="star text-gray-600 text-4xl cursor-pointer hover:scale-125 transition-all">★</span>
-                            <span data-star="2" class="star text-gray-600 text-4xl cursor-pointer hover:scale-125 transition-all">★</span>
-                            <span data-star="3" class="star text-gray-600 text-4xl cursor-pointer hover:scale-125 transition-all">★</span>
-                            <span data-star="4" class="star text-gray-600 text-4xl cursor-pointer hover:scale-125 transition-all">★</span>
-                            <span data-star="5" class="star text-gray-600 text-4xl cursor-pointer hover:scale-125 transition-all">★</span>
-                        </div>
-                        <textarea name="wish" placeholder="Your wedding wish..." class="w-full bg-[#030b17] border border-gray-700 p-5 rounded-xl text-white outline-none focus:border-blue-500 h-32" required></textarea>
-                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 py-4 rounded-xl font-bold uppercase tracking-widest text-white transition-all text-white">Submit Rating</button>
-                    </form>
-                </div>
-            </section>
-
-            <section class="py-20 bg-[#030b17] px-6 text-center border-t border-gray-800">
-                <div class="max-w-4xl mx-auto" data-aos="fade-up">
-                    <h2 class="font-disney text-3xl font-bold text-white mb-4 uppercase tracking-widest">Wedding Location</h2>
-                    <p class="text-gray-400 mb-10 italic uppercase">Mang Kabayan Bekasi (Harapan Indah)</p>
-                    <a href="https://share.google/DFcgfysS9DdZsXOhW" target="_blank" class="inline-block bg-[#1f80e0] text-white px-10 py-5 rounded-full font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-500/20 uppercase tracking-widest">
-                        📍 Open in Google Maps
-                    </a>
-                </div>
-            </section>
-
-            <footer class="py-24 text-center border-t border-gray-900 bg-black">
-                <h2 class="font-wedding text-6xl text-blue-500 mb-6">Ramdani & Tyas</h2>
-                <p class="text-gray-600 text-xs tracking-[0.6em] uppercase italic">Wedding Premiere • Produced by Mr. Yu</p>
-            </footer>
+        <div id="success-screen" class="hidden min-h-screen flex flex-col items-center justify-center text-center px-6 py-20 bg-[#030b17]">
+            <div class="mb-6 text-5xl">✨</div>
+            <h1 class="text-blue-400 font-black tracking-[0.3em] uppercase mb-4 text-xs">Response Recorded</h1>
+            <h2 class="text-5xl md:text-7xl font-wedding gradient-text mb-6">Terima Kasih!</h2>
+            <p class="text-gray-400 text-lg italic font-light max-w-md mx-auto mb-10 leading-relaxed">
+                "Konfirmasi kehadiran dan pesan manis Anda telah kami terima. Sampai jumpa di hari bahagia kami!"
+            </p>
+            <div class="flex flex-col gap-4">
+                <button onclick="showWishesOverlay()" class="bg-blue-600 hover:bg-blue-500 text-white px-10 py-3 rounded-full uppercase text-[10px] tracking-[0.3em] font-bold shadow-lg shadow-blue-500/20">
+                    View Wedding Wishes
+                </button>
+                <button onclick="location.reload()" class="inline-block border border-gray-700 text-gray-500 px-10 py-3 rounded-full hover:text-white transition-all uppercase text-[10px] tracking-[0.3em]">
+                    Back to Home
+                </button>
+            </div>
+            <div id="wishes-overlay" class="hidden mt-12 w-full max-w-4xl animate-fade-in">
+                <h3 class="text-center text-blue-300 uppercase tracking-[0.2em] text-xs font-bold mb-8">What They Said</h3>
+                <div id="wishes-list-polos" class="grid gap-6 md:grid-cols-2 text-left"></div>
+            </div>
         </div>
     </div>
 

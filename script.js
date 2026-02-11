@@ -7,7 +7,7 @@ const musicBtn = document.getElementById('music-control');
 const musicIcon = document.getElementById('music-icon');
 let isMuted = false;
 
-// --- SINKRONISASI NAMA UNTUK EXCEL ---
+// --- SINKRONISASI NAMA ---
 const rsvpInputNama = document.getElementById('rsvp-nama');
 const ratingNamaHidden = document.getElementById('rating-nama-hidden');
 
@@ -89,9 +89,9 @@ function openModal(ep) {
     const modal = document.getElementById('storyModal');
     const content = document.getElementById('modalContent');
     const storyData = {
-        ep1: { title: "The Unwritten Script", desc: "''Setelah masa SMP dan SMA berlalu...''", img: "assets/img/ep1_modal.jpeg" },
-        ep2: { title: "The Milestone", desc: "''Ini bukan pencapaian instan...''", img: "assets/img/ep2_modal.jpeg" },
-        ep3: { title: "Finding Home", desc: "''Semua ujian yang datang...''", img: "assets/img/ep3_modal.jpeg" }
+        ep1: { title: "The Unwritten Script", desc: "''Setelah masa SMP dan SMA berlalu, semesta mempertemukan kita kembali. Tanpa rencana, tanpa naskah... tapi justru dari situlah cerita ini mulai ditulis dengan cara yang paling indah.''", img: "assets/img/ep1_modal.jpeg" },
+        ep2: { title: "The Milestone", desc: "''Ini bukan pencapaian instan, tapi hasil dari proses panjang yang penuh usaha dan kesabaran. Setelah melewati banyak hal, akhirnya perjalanan ini sampai di titik penting yang layak dirayakan.''", img: "assets/img/ep2_modal.jpeg" },
+        ep3: { title: "Finding Home", desc: "''Semua ujian yang datang hanya membuat kita semakin kuat. Hingga akhirnya kita sadar: tujuan akhir bukan kemenangan, tapi tempat pulang. Dan kamu... adalah rumah itu.''", img: "assets/img/ep3_modal.jpeg" }
     };
     if(!modal || !storyData[ep]) return;
     document.getElementById('modalTitle').innerText = storyData[ep].title;
@@ -118,6 +118,7 @@ function toggleMusic() {
     isMuted = !isMuted;
 }
 
+// --- SUBMIT DENGAN LOGIKA POLOSAN URL ---
 async function submitToSheets(formId, isRedirect) {
     const form = document.getElementById(formId);
     if (!form) return;
@@ -127,20 +128,56 @@ async function submitToSheets(formId, isRedirect) {
         const originalText = btn.innerText;
         btn.innerText = "Processing...";
         btn.disabled = true;
+
         fetch(SCRIPT_URL, { method: 'POST', body: new FormData(form) })
         .then(() => {
-            if (isRedirect) { window.location.href = "thank-you"; } 
+            if (isRedirect) { 
+                // Sembunyikan konten undangan, munculkan layar sukses
+                document.getElementById('all-content-wrapper').classList.add('hidden');
+                document.getElementById('success-screen').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } 
             else {
                 document.getElementById('rsvp-container').innerHTML = `
                     <div class="text-center p-10 animate-zoom-in">
                         <div class="text-5xl mb-4">✅</div>
-                        <h3 class="text-xl font-bold text-white uppercase tracking-widest mb-2">Konfirmasi Diterima</h3>
-                        <p class="text-gray-400 text-sm italic">"Terima kasih, kehadiran Anda sangat berarti bagi kami."</p>
+                        <h3 class="text-xl font-bold text-white uppercase tracking-widest mb-2 text-center">Konfirmasi Diterima</h3>
+                        <p class="text-gray-400 text-sm italic text-center">"Terima kasih, kehadiran Anda sangat berarti bagi kami."</p>
                     </div>`;
             }
         })
         .catch(() => { alert("Gagal mengirim data."); btn.disabled = false; btn.innerText = originalText; });
     });
+}
+
+// --- LOGIKA GUEST BOOK DI DALAM INDEX (POLOSAN) ---
+async function showWishesOverlay() {
+    const overlay = document.getElementById('wishes-overlay');
+    const listDiv = document.getElementById('wishes-list-polos');
+    
+    overlay.classList.remove('hidden');
+    listDiv.innerHTML = "<p class='text-center text-gray-500 italic col-span-full'>Gathering memories...</p>";
+    
+    try {
+        const response = await fetch(SCRIPT_URL);
+        const data = await response.json();
+        const filteredData = data.filter(item => item.wish && item.wish.trim() !== "");
+
+        if (filteredData.length === 0) {
+            listDiv.innerHTML = "<p class='text-center text-gray-500 italic col-span-full'>Belum ada pesan yang dibagikan.</p>";
+            return;
+        }
+
+        listDiv.innerHTML = filteredData.reverse().map(item => `
+            <div class="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-md">
+                <div class="text-amber-400 text-xs mb-3 text-left">${'★'.repeat(item.rating)}${'☆'.repeat(5 - item.rating)}</div>
+                <p class="text-gray-300 italic mb-4 font-light text-sm leading-relaxed text-left">"${item.wish}"</p>
+                <h4 class="text-blue-400 font-bold uppercase text-[10px] tracking-widest text-left">— ${item.nama}</h4>
+            </div>
+        `).join('');
+    } catch (error) {
+        listDiv.innerHTML = "<p class='text-center text-red-400 italic col-span-full'>Gagal memuat pesan.</p>";
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
